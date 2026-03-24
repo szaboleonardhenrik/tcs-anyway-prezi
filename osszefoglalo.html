@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCS — Anyway Tervező Meeting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold:#D29B01; --gold-light:#F5E8B0; --gold-pale:#FBF5E0;
+            --blue:#2F6482; --blue-light:#EAF2F7;
+            --teal:#46A0A0; --teal-light:#E8F5F5; --teal-dark:#357878;
+            --bg:#F8FAFB; --bg-alt:#F0F5F7; --card:#FFFFFF; --border:#DDE7EC;
+            --text:#1E2E38; --text-mid:#3D5260; --text-muted:#6B8290;
+            --red:#C0392B; --red-light:#FDEDEC; --green:#27AE60; --orange:#E67E22;
+            --shadow:0 8px 32px rgba(47,100,130,0.12);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}
+        .slides-container{display:flex;height:100vh;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;}
+        .slides-container::-webkit-scrollbar{height:0;}
+        .slide{flex:0 0 100vw;width:100vw;height:100vh;scroll-snap-align:start;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:5.5rem 6rem 3rem;}
+        .slide::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;}
+        .slide:nth-child(odd)::before{background:radial-gradient(ellipse at 15% 50%,rgba(70,160,160,0.05) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(210,155,1,0.04) 0%,transparent 50%);}
+        .slide:nth-child(even)::before{background:radial-gradient(ellipse at 85% 50%,rgba(47,100,130,0.04) 0%,transparent 55%),radial-gradient(ellipse at 15% 80%,rgba(210,155,1,0.03) 0%,transparent 50%);}
+        .slide-number{position:absolute;bottom:1.5rem;right:3rem;font-size:1.1rem;color:var(--text-muted);opacity:0.5;font-weight:500;}
+
+        /* NAV */
+        .nav-bar{position:fixed;top:0;left:0;right:0;background:rgba(248,250,251,0.92);backdrop-filter:blur(20px);border-bottom:2px solid var(--border);z-index:100;padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;}
+        .nav-logo{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--text);}
+        .nav-logo em{color:var(--teal);font-style:normal;}
+        .nav-controls{display:flex;align-items:center;gap:0.8rem;}
+        .nav-btn{width:50px;height:50px;border-radius:12px;border:2px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:all 0.2s;}
+        .nav-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal);}
+        .slide-indicator{font-size:1.2rem;color:var(--text-mid);min-width:80px;text-align:center;font-weight:600;}
+        .progress-bar{position:fixed;bottom:0;left:0;height:5px;background:linear-gradient(90deg,var(--teal),var(--gold));z-index:100;transition:width 0.3s;}
+
+        /* HERO & CLOSING */
+        .slide-hero{justify-content:center;align-items:center;text-align:center;padding-top:68px;background:linear-gradient(135deg,#F8FAFB 0%,var(--blue-light) 50%,var(--teal-light) 100%);}
+        .hero-badge{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;padding:0.6rem 2.2rem;border-radius:40px;font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:2.5rem;}
+        .slide-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:400;line-height:1.05;margin-bottom:1.2rem;}
+        .slide-hero h1 .teal{color:var(--teal);} .slide-hero h1 .gold{color:var(--gold);}
+        .slide-hero .subtitle{font-family:'DM Serif Display',serif;color:var(--text-mid);font-size:2rem;max-width:900px;margin-bottom:0.8rem;}
+        .slide-hero .date-line{color:var(--text-muted);font-size:1.3rem;font-weight:500;margin-bottom:2.5rem;}
+        .hero-arrow{animation:bounce 2s infinite;color:var(--gold);font-size:2rem;cursor:pointer;opacity:0.7;}
+        @keyframes bounce{0%,100%{transform:translateX(0);}50%{transform:translateX(10px);}}
+
+        /* TOC */
+        .toc-title{font-family:'DM Serif Display',serif;font-size:2.8rem;margin-bottom:2.5rem;}
+        .toc-title em{color:var(--teal);font-style:normal;}
+        .toc-grid{display:grid;gap:1.5rem;flex:1;}
+        .toc-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem 1.5rem;background:var(--card);border:3px solid var(--border);border-radius:22px;cursor:pointer;transition:all 0.3s;min-height:130px;box-shadow:0 4px 16px rgba(47,100,130,0.06);}
+        .toc-item:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+        .toc-num{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem;color:#fff;}
+        .toc-label{font-weight:700;font-size:1.15rem;text-align:center;line-height:1.3;}
+
+        /* SECTION HEADER */
+        .section-header{display:flex;align-items:center;gap:1.2rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:3px solid var(--border);}
+        .section-num{width:60px;height:60px;border-radius:16px;color:#fff;background:linear-gradient(135deg,var(--teal),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.5rem;flex-shrink:0;}
+        .section-num.gold{background:linear-gradient(135deg,var(--gold),#E8B830);}
+        .section-header h2{font-family:'DM Serif Display',serif;font-size:2.6rem;}
+
+        /* UTILS */
+        .card{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:2rem;margin-bottom:1.5rem;box-shadow:var(--shadow);}
+        .note{background:var(--teal-light);border-left:5px solid var(--teal);border-radius:0 14px 14px 0;padding:1.4rem 2rem;margin-bottom:1.5rem;font-size:1.3rem;color:var(--text-mid);}
+        .note strong{color:var(--text);}
+        .note.gold{background:var(--gold-pale);border-left-color:var(--gold);}
+        .note.red{background:var(--red-light);border-left-color:var(--red);}
+
+        /* METRIC BOXES */
+        .metrics-row{display:grid;gap:1.5rem;margin:1.5rem 0;}
+        .metric{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:1.8rem;text-align:center;box-shadow:0 4px 16px rgba(47,100,130,0.06);}
+        .metric .number{font-family:'DM Serif Display',serif;font-size:2.6rem;margin-bottom:0.2rem;}
+        .metric .label{color:var(--text-muted);font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+        .metric .sublabel{color:var(--text-mid);font-size:1.1rem;margin-top:0.4rem;line-height:1.4;}
+        .metric.teal .number{color:var(--teal);} .metric.teal{border-color:var(--teal);}
+        .metric.gold .number{color:var(--gold);} .metric.gold{border-color:var(--gold);}
+        .metric.blue .number{color:var(--blue);} .metric.blue{border-color:var(--blue);}
+        .metric.red .number{color:var(--red);} .metric.red{border-color:var(--red);}
+        .metric.green .number{color:var(--green);} .metric.green{border-color:var(--green);}
+
+        /* COMPARE */
+        .compare-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:1.5rem;align-items:start;}
+        .compare-card{background:var(--card);border:3px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow);}
+        .compare-card.old{border-color:var(--text-muted);opacity:0.75;}
+        .compare-card.new{border-color:var(--teal);}
+        .compare-card h3{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:1rem;}
+        .compare-card.old h3{color:var(--text-muted);} .compare-card.new h3{color:var(--teal);}
+        .compare-arrow{display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--gold);padding-top:2rem;}
+        .compare-list{list-style:none;font-size:1.15rem;}
+        .compare-list li{padding:0.4rem 0;color:var(--text-mid);}
+        .compare-list li strong{color:var(--text);}
+
+        /* TABLE */
+        .table-wrap{overflow-x:auto;border-radius:16px;border:2px solid var(--border);margin-bottom:1.5rem;box-shadow:0 4px 16px rgba(47,100,130,0.06);}
+        table{width:100%;border-collapse:collapse;font-size:1.05rem;}
+        thead{background:var(--bg-alt);}
+        th{padding:0.9rem 1.2rem;text-align:left;font-weight:700;color:var(--blue);font-size:0.95rem;text-transform:uppercase;letter-spacing:0.5px;}
+        td{padding:0.9rem 1.2rem;border-top:1px solid var(--border);}
+        tr:hover td{background:rgba(70,160,160,0.04);}
+
+        /* DIRECTION */
+        .direction-grid{display:grid;gap:1.2rem;}
+        .direction-card{background:var(--card);border:3px solid var(--border);border-radius:18px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;box-shadow:0 4px 16px rgba(47,100,130,0.05);transition:all 0.2s;}
+        .direction-card:hover{transform:translateX(4px);}
+        .direction-card.active{border-color:var(--teal);background:linear-gradient(135deg,#fff 70%,var(--teal-light));}
+        .direction-card.potential{border-color:var(--gold);background:linear-gradient(135deg,#fff 70%,var(--gold-pale));}
+        .direction-card .pct{font-family:'DM Serif Display',serif;font-size:2.2rem;font-weight:400;min-width:80px;text-align:center;}
+        .direction-card.active .pct{color:var(--teal);}
+        .direction-card.potential .pct{color:var(--gold);}
+        .direction-card h4{font-size:1.25rem;font-weight:700;}
+        .direction-card .desc{color:var(--text-muted);font-size:1rem;}
+        .direction-card .badge{padding:0.2rem 0.8rem;border-radius:16px;font-size:0.8rem;font-weight:700;white-space:nowrap;}
+        .direction-card.active .badge{background:var(--teal-light);color:var(--teal-dark);}
+        .direction-card.potential .badge{background:var(--gold-pale);color:var(--gold);}
+        .dir-info{display:flex;flex-direction:column;gap:0.2rem;flex:1;}
+
+        /* MATRIX */
+        .matrix-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+        .matrix-item{background:var(--card);border:3px solid var(--border);border-radius:18px;padding:1.8rem;box-shadow:0 4px 16px rgba(47,100,130,0.06);}
+        .matrix-item .name{font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:0.8rem;}
+        .matrix-item .detail{font-size:1rem;color:var(--text-mid);margin-bottom:0.3rem;display:flex;gap:0.5rem;}
+        .matrix-item .detail .dl{font-weight:700;color:var(--text);min-width:65px;}
+
+        /* CHALLENGE */
+        .challenge-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:1.5rem;}
+        .challenge{background:var(--card);border:3px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow);}
+        .challenge.left{border-color:var(--red);border-top:5px solid var(--red);}
+        .challenge.right{border-color:var(--teal);border-top:5px solid var(--teal);}
+        .challenge h3{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:0.8rem;}
+        .challenge.left h3{color:var(--red);} .challenge.right h3{color:var(--teal);}
+        .challenge p{color:var(--text-mid);font-size:1.15rem;line-height:1.6;}
+
+        .two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+
+        /* CLOSING */
+        .slide-closing{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--teal-light) 0%,var(--blue-light) 50%,var(--gold-pale) 100%);}
+        .slide-closing h1{font-family:'DM Serif Display',serif;font-size:clamp(3rem,6vw,5rem);margin-bottom:1.5rem;}
+        .slide-closing .subtitle{font-size:1.8rem;color:var(--text-mid);margin-bottom:2rem;}
+        .closing-meta{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;}
+        .closing-meta-item{display:flex;flex-direction:column;align-items:center;}
+        .closing-meta-item .val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--teal);}
+        .closing-meta-item .lbl{font-size:0.95rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+
+        /* ANIM */
+        @keyframes fadeIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+        .slide.active .section-header,.slide.active .card,.slide.active .note,.slide.active .metrics-row,.slide.active .compare-grid,.slide.active .direction-grid,.slide.active .matrix-grid,.slide.active .table-wrap,.slide.active .challenge-grid,.slide.active .toc-grid,.slide.active .two-col{animation:fadeIn 0.5s ease-out both;}
+    </style>
+</head>
+<body>
+
+<div class="nav-bar">
+    <div class="nav-logo">Tudatos<em>AI</em></div>
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()">&larr;</button>
+        <span class="slide-indicator" id="slideIndicator">1 / 8</span>
+        <button class="nav-btn" onclick="nextSlide()">&rarr;</button>
+    </div>
+</div>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="slides-container" id="slidesContainer">
+
+    <!-- 1: HERO -->
+    <div class="slide slide-hero" id="slide-0">
+        <div class="hero-badge">T-Cloud Solutions Kft.</div>
+        <h1>TCS &mdash; <span class="teal">Anyway</span></h1>
+        <div class="subtitle">Strat&eacute;gia &eacute;s J&ouml;v&#337;k&eacute;p &mdash; Tervez&#337; Meeting</div>
+        <div class="date-line">2026. m&aacute;rcius 24.</div>
+        <div class="hero-arrow" onclick="goToSlide(1)">&rarr; Tov&aacute;bb</div>
+        <div class="slide-number">1 / 8</div>
+    </div>
+
+    <!-- 2: TARTALOMJEGYZEK -->
+    <div class="slide slide-content" id="slide-1" style="padding-top:calc(68px + 3rem);">
+        <div class="toc-title">Tartalom<em>jegyz&eacute;k</em></div>
+        <div class="toc-grid" style="grid-template-columns:repeat(4,1fr);">
+            <a class="toc-item" onclick="goToSlide(2)" style="border-color:var(--gold);background:linear-gradient(135deg,#fff 50%,var(--gold-pale));">
+                <div class="toc-num" style="background:linear-gradient(135deg,var(--gold),#E8B830);">1</div>
+                <div class="toc-label">Vezet&#337;i<br>&ouml;sszefoglal&oacute;</div>
+            </a>
+            <a class="toc-item" onclick="goToSlide(3)" style="border-color:var(--teal);background:linear-gradient(135deg,#fff 50%,var(--teal-light));">
+                <div class="toc-num" style="background:linear-gradient(135deg,var(--teal),var(--blue));">2</div>
+                <div class="toc-label">AI<br>el&#337;ny&uuml;nk</div>
+            </a>
+            <a class="toc-item" onclick="goToSlide(4)" style="border-color:var(--blue);background:linear-gradient(135deg,#fff 50%,var(--blue-light));">
+                <div class="toc-num" style="background:linear-gradient(135deg,var(--blue),#1E4A64);">3</div>
+                <div class="toc-label">TCS<br>st&aacute;tusz</div>
+            </a>
+            <a class="toc-item" onclick="goToSlide(5)" style="border-color:var(--teal);background:linear-gradient(135deg,#fff 50%,var(--teal-light));">
+                <div class="toc-num" style="background:linear-gradient(135deg,var(--teal),var(--teal-dark));">4</div>
+                <div class="toc-label">Merre<br>tov&aacute;bb?</div>
+            </a>
+            <a class="toc-item" onclick="goToSlide(6)" style="border-color:var(--gold);background:linear-gradient(135deg,#fff 50%,var(--gold-pale));">
+                <div class="toc-num" style="background:linear-gradient(135deg,var(--gold),#E8B830);">5</div>
+                <div class="toc-label">V&aacute;llalkoz&oacute;i<br>m&aacute;trix</div>
+            </a>
+            <a class="toc-item" onclick="goToSlide(7)" style="border-color:var(--gold);background:linear-gradient(135deg,#fff 50%,var(--gold-pale));">
+                <div class="toc-num" style="background:linear-gradient(135deg,var(--gold),#E8B830);">6</div>
+                <div class="toc-label">D&ouml;nt&eacute;si fa<br>&amp; Opci&oacute;k</div>
+            </a>
+        </div>
+        <div class="slide-number">2 / 8</div>
+    </div>
+
+    <!-- 3: VEZETOI OSSZEFOGLALO -->
+    <div class="slide slide-content" id="slide-2">
+        <div class="section-header">
+            <div class="section-num gold">1</div>
+            <h2>Vezet&#337;i &ouml;sszefoglal&oacute;</h2>
+        </div>
+        <div class="note red" style="font-size:1.5rem; margin-bottom:2rem;">
+            <strong>Teljesen megv&aacute;ltozott a piac</strong> &mdash; Azonnali profilv&aacute;lt&aacute;st javaslunk egyedi megold&aacute;sokkal, gyorsan &eacute;s olcs&oacute;n.
+        </div>
+        <div class="metrics-row" style="grid-template-columns:repeat(4,1fr);">
+            <div class="metric green">
+                <div class="number">22M Ft</div>
+                <div class="label">&Eacute;ves megtakar&iacute;t&aacute;s</div>
+                <div class="sublabel">3 h&eacute;t alatt el&eacute;rve</div>
+            </div>
+            <div class="metric red">
+                <div class="number">Lej&aacute;rt</div>
+                <div class="label">Dobozos megold&aacute;sok</div>
+                <div class="sublabel">El&#337;fizet&eacute;ses &eacute;s szem&eacute;lyre szabott kell</div>
+            </div>
+            <div class="metric teal">
+                <div class="number">AI el&#337;ny</div>
+                <div class="label">Km-es el&#337;ny&uuml;nk van</div>
+                <div class="sublabel">HR h&aacute;tt&eacute;rbe szorul, automatiz&aacute;ci&oacute; el&#337;re</div>
+            </div>
+            <div class="metric gold">
+                <div class="number">Pivot</div>
+                <div class="label">ATS &rarr; AI szoftverc&eacute;g</div>
+                <div class="sublabel">ERP + SaaS + App + Tan&aacute;csad&aacute;s</div>
+            </div>
+        </div>
+        <div class="slide-number">3 / 8</div>
+    </div>
+
+    <!-- 4: AI ELONYUNK -->
+    <div class="slide slide-content" id="slide-3">
+        <div class="section-header">
+            <div class="section-num">2</div>
+            <h2>AI &mdash; Kilom&eacute;teres el&#337;ny&uuml;nk</h2>
+        </div>
+        <div class="note" style="font-size:1.4rem; margin-bottom:2rem;">
+            A vil&aacute;gon &eacute;s f&#337;k&eacute;nt <strong>Magyarorsz&aacute;gon m&eacute;g mindig kilom&eacute;teres az el&#337;ny&uuml;nk</strong> a versenyt&aacute;rsainkhoz k&eacute;pest.
+        </div>
+        <div class="compare-grid">
+            <div class="compare-card old">
+                <h3>Eddig</h3>
+                <ul class="compare-list">
+                    <li><strong>Mit akartunk kiv&aacute;ltani?</strong></li>
+                    <li>Szoftvert</li>
+                    <li>Adatgy&#369;jt&eacute;st</li>
+                    <li>Id&#337;t</li>
+                </ul>
+                <div style="margin-top:1.2rem;padding:1rem;background:var(--bg-alt);border-radius:12px;text-align:center;font-size:1.2rem;font-weight:700;color:var(--text-muted);">
+                    Hogyan tudunk <strong>adatot gy&#369;jteni</strong> hat&eacute;konyabban?
+                </div>
+            </div>
+            <div class="compare-arrow">&rarr;</div>
+            <div class="compare-card new">
+                <h3>Mostant&oacute;l</h3>
+                <ul class="compare-list">
+                    <li><strong>Mit akarunk kiv&aacute;ltani?</strong></li>
+                    <li>Embert</li>
+                    <li>Manualit&aacute;st</li>
+                    <li>Energi&aacute;t</li>
+                </ul>
+                <div style="margin-top:1.2rem;padding:1rem;background:var(--teal-light);border-radius:12px;text-align:center;font-size:1.2rem;font-weight:700;color:var(--teal-dark);">
+                    Hogyan tudjuk kiv&aacute;ltani az <strong>emberi t&eacute;nyez&#337;t?</strong>
+                </div>
+            </div>
+        </div>
+        <div class="metrics-row" style="grid-template-columns:repeat(3,1fr);margin-top:2rem;">
+            <div class="metric teal"><div class="number">450</div><div class="label">Commit</div></div>
+            <div class="metric gold"><div class="number">500</div><div class="label">Ticket</div></div>
+            <div class="metric blue"><div class="number">4 f&#337;</div><div class="label">Kiv&aacute;ltva</div></div>
+        </div>
+        <div class="slide-number">4 / 8</div>
+    </div>
+
+    <!-- 5: TCS STATUSZ -->
+    <div class="slide slide-content" id="slide-4">
+        <div class="section-header">
+            <div class="section-num gold">3</div>
+            <h2>TCS St&aacute;tusz</h2>
+        </div>
+        <div class="compare-grid">
+            <div class="compare-card old" style="padding:1.5rem;">
+                <h3 style="font-size:1.3rem;">Honnan indultunk</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:0.8rem 0;">
+                    <div class="metric red" style="padding:1rem;"><div class="number" style="font-size:2rem;">0 Ft</div><div class="label" style="font-size:0.85rem;">Havi bev&eacute;tel</div></div>
+                    <div class="metric" style="padding:1rem;"><div class="number" style="font-size:2rem;">30K</div><div class="label" style="font-size:0.85rem;">Havi k&ouml;lts&eacute;g</div></div>
+                </div>
+                <ul class="compare-list" style="font-size:1rem;">
+                    <li>ATS rendszer fejleszt&eacute;s</li>
+                    <li>Kiz&aacute;r&oacute;lag ATS f&oacute;kusz</li>
+                    <li>Lass&uacute;, k&eacute;zi fejleszt&eacute;s</li>
+                    <li>2+1 IT fejleszt&#337;</li>
+                </ul>
+            </div>
+            <div class="compare-arrow">&rarr;</div>
+            <div class="compare-card new" style="padding:1.5rem;">
+                <h3 style="font-size:1.3rem;">Hol tartunk ma</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:0.8rem 0;">
+                    <div class="metric teal" style="padding:1rem;"><div class="number" style="font-size:2rem;">350K</div><div class="label" style="font-size:0.85rem;">Havi bev&eacute;tel</div></div>
+                    <div class="metric gold" style="padding:1rem;"><div class="number" style="font-size:2rem;">1M Ft</div><div class="label" style="font-size:0.85rem;">Havi k&ouml;lts&eacute;g</div></div>
+                </div>
+                <ul class="compare-list" style="font-size:1rem;">
+                    <li>ATS &eacute;rt&eacute;ke cs&ouml;kken</li>
+                    <li>Egyedi fejleszt&eacute;s el&eacute;rhet&#337;</li>
+                    <li>Poz&iacute;ci&oacute; teljesen &aacute;talakult</li>
+                    <li><strong>AI szoftverfejleszt&#337; c&eacute;g</strong></li>
+                </ul>
+            </div>
+        </div>
+        <div class="note" style="margin-top:1rem;font-size:1.2rem;">
+            Kicsivel t&ouml;bb mint <strong>egy &eacute;ve indultunk</strong>. A nagy v&aacute;ltoz&aacute;sok most k&ouml;vetkeznek &mdash; most der&uuml;l ki, mire vagyunk k&eacute;pesek <strong>n&eacute;gyen egy&uuml;tt</strong>.
+        </div>
+        <div class="slide-number">5 / 8</div>
+    </div>
+
+    <!-- 6: MERRE TOVABB -->
+    <div class="slide slide-content" id="slide-5" style="padding:4.5rem 5rem 2.5rem;">
+        <div class="section-header" style="margin-bottom:1.2rem;padding-bottom:0.8rem;">
+            <div class="section-num">4</div>
+            <h2>Merre tov&aacute;bb?</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;flex:1;">
+            <div>
+                <div style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:0.7rem;color:var(--teal);">B2B Magyarorsz&aacute;g <span style="font-size:0.8rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;">(SaaS / AaaS)</span></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.5rem;min-width:50px;">ERP</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">V&aacute;llalati ERP</h4></div>
+                    </div>
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.5rem;min-width:50px;">ATS</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">Toborz&aacute;si rendszer</h4></div>
+                    </div>
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.5rem;min-width:50px;">CRM</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">&Uuml;gyf&eacute;lkezel&eacute;s</h4></div>
+                    </div>
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.1rem;min-width:50px;">C&eacute;g</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">C&eacute;gverzum</h4></div>
+                    </div>
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1rem;min-width:50px;">Sz&aacute;mla</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">Sz&aacute;mlaverzum</h4></div>
+                    </div>
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1rem;min-width:50px;">Szerz.</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">Szerz&#337;d&eacute;sverzum</h4></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:0.7rem;color:var(--gold);">Tov&aacute;bbi ir&aacute;nyok</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+                    <div class="direction-card active" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.5rem;min-width:50px;">95%</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">App fejleszt&eacute;s</h4><div class="desc" style="font-size:0.85rem;">Pokertimer</div></div>
+                    </div>
+                    <div class="direction-card potential" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.5rem;min-width:50px;">30%</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">Web / App</h4><div class="desc" style="font-size:0.85rem;">Anyshift</div></div>
+                    </div>
+                    <div class="direction-card potential" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.5rem;min-width:50px;">30%</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">AI tan&aacute;csad&aacute;s</h4><div class="desc" style="font-size:0.85rem;">Strat&eacute;gia</div></div>
+                    </div>
+                    <div class="direction-card potential" style="padding:0.9rem 1.2rem;border-width:2px;border-radius:14px;">
+                        <div class="pct" style="font-size:1.2rem;min-width:50px;">Egyedi</div>
+                        <div class="dir-info"><h4 style="font-size:1rem;">Egyedi fejl.</h4><div class="desc" style="font-size:0.85rem;">Megrendel&eacute;sre</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">6 / 8</div>
+    </div>
+
+    <!-- 7: VALLALKOZOI MATRIX -->
+    <div class="slide slide-content" id="slide-6" style="padding:4.5rem 5rem 2.5rem;">
+        <div class="section-header" style="margin-bottom:1rem;padding-bottom:0.8rem;">
+            <div class="section-num gold">5</div>
+            <h2>V&aacute;llalkoz&oacute;i m&aacute;trix</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex:1;align-items:center;">
+            <!-- TRIANGLE SVG -->
+            <div style="display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 500 440" style="width:100%;max-width:520px;">
+                    <!-- Triangle -->
+                    <polygon points="250,30 470,400 30,400" fill="none" stroke="#DDE7EC" stroke-width="3"/>
+                    <!-- Axis labels -->
+                    <text x="250" y="18" text-anchor="middle" font-family="DM Serif Display,serif" font-size="22" fill="#D29B01" font-weight="400">P&eacute;nz</text>
+                    <text x="10" y="430" text-anchor="start" font-family="DM Serif Display,serif" font-size="22" fill="#46A0A0" font-weight="400">Id&#337;</text>
+                    <text x="490" y="430" text-anchor="end" font-family="DM Serif Display,serif" font-size="22" fill="#2F6482" font-weight="400">Szakmai</text>
+                    <!-- Dashed inner lines -->
+                    <line x1="250" y1="30" x2="250" y2="400" stroke="#DDE7EC" stroke-width="1" stroke-dasharray="6,4"/>
+                    <line x1="140" y1="215" x2="360" y2="215" stroke="#DDE7EC" stroke-width="1" stroke-dasharray="6,4"/>
+                    <!-- ATTILA - pénz és szakmai között (jobb felső) -->
+                    <circle cx="350" cy="200" r="32" fill="#D29B01" opacity="0.15" stroke="#D29B01" stroke-width="3"/>
+                    <text x="350" y="195" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" fill="#D29B01" font-weight="800">Attila</text>
+                    <text x="350" y="215" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#3D5260">10h | 1.5M</text>
+                    <!-- JANI - pénz és szakmai között, közel Attilához -->
+                    <circle cx="380" cy="270" r="32" fill="#357878" opacity="0.15" stroke="#357878" stroke-width="3"/>
+                    <text x="380" y="265" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" fill="#357878" font-weight="800">Jani</text>
+                    <text x="380" y="285" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#3D5260">10h | 1.5M</text>
+                    <!-- LEONÁRD - közép -->
+                    <circle cx="250" cy="270" r="32" fill="#46A0A0" opacity="0.15" stroke="#46A0A0" stroke-width="3"/>
+                    <text x="250" y="265" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" fill="#46A0A0" font-weight="800">Leon&aacute;rd</text>
+                    <text x="250" y="285" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#3D5260">12h | 1.5M</text>
+                    <!-- AMIR - idő és pénz között (bal fent) -->
+                    <circle cx="170" cy="200" r="32" fill="#2F6482" opacity="0.15" stroke="#2F6482" stroke-width="3"/>
+                    <text x="170" y="195" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" fill="#2F6482" font-weight="800">Amir</text>
+                    <text x="170" y="215" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#3D5260">12h | 1.5M</text>
+                    <!-- 1.5M/fő label -->
+                    <text x="250" y="380" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="#6B8290">Mindenki: 1.5M Ft t&#337;ke | 25% tulajdon</text>
+                </svg>
+            </div>
+            <!-- PERSON DETAILS -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+                <div style="background:var(--card);border:2px solid var(--teal);border-radius:14px;padding:1.2rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--teal);margin-bottom:0.5rem;">Leon&aacute;rd</div>
+                    <div style="font-size:0.95rem;color:var(--text-mid);line-height:1.6;">
+                        <strong>12 &oacute;ra/h&eacute;t</strong><br>
+                        Sales &amp; &uuml;zletfejleszt&eacute;s<br>
+                        Legitas, C&eacute;gverzum, Pokertimer<br>
+                        Frontend &amp; full-stack
+                    </div>
+                </div>
+                <div style="background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:1.2rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--gold);margin-bottom:0.5rem;">Attila</div>
+                    <div style="font-size:0.95rem;color:var(--text-mid);line-height:1.6;">
+                        <strong>10 &oacute;ra/h&eacute;t</strong><br>
+                        TDHR Group vezet&eacute;s<br>
+                        Marketing &amp; brand<br>
+                        &Uuml;gyf&eacute;lh&aacute;l&oacute;zat, CT szponzor
+                    </div>
+                </div>
+                <div style="background:var(--card);border:2px solid var(--blue);border-radius:14px;padding:1.2rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--blue);margin-bottom:0.5rem;">Amir</div>
+                    <div style="font-size:0.95rem;color:var(--text-mid);line-height:1.6;">
+                        <strong>12 &oacute;ra/h&eacute;t</strong><br>
+                        Strat&eacute;giai l&aacute;t&aacute;sm&oacute;d<br>
+                        Piaci kapcsolatok<br>
+                        &Uuml;zleti modell tervez&eacute;s
+                    </div>
+                </div>
+                <div style="background:var(--card);border:2px solid var(--teal-dark);border-radius:14px;padding:1.2rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--teal-dark);margin-bottom:0.5rem;">Jani</div>
+                    <div style="font-size:0.95rem;color:var(--text-mid);line-height:1.6;">
+                        <strong>10 &oacute;ra/h&eacute;t</strong><br>
+                        CTO / Szerver &amp; infra<br>
+                        Anyway ATS fejleszt&eacute;s<br>
+                        DevOps &amp; code review
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="note gold" style="margin-top:0.8rem;font-size:1.1rem;padding:1rem 1.5rem;">
+            <strong>T&#337;ke:</strong> 1.5M Ft / f&#337; = <strong>6M Ft</strong> &ouml;sszesen &nbsp;|&nbsp; <strong>Tulajdon:</strong> 25-25-25-25% &nbsp;|&nbsp; <strong>Heti kapacit&aacute;s:</strong> 12+10+12+10 = 44 &oacute;ra
+        </div>
+        <div class="slide-number">7 / 8</div>
+    </div>
+
+    <!-- 8: INTERAKTÍV DÖNTÉSI JÁTÉK -->
+    <div class="slide slide-content" id="slide-7" style="padding:4.5rem 5rem 2.5rem;overflow:visible;">
+        <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
+            <div class="section-num gold">7</div>
+            <h2>D&ouml;nt&eacute;sek &mdash; Kattints &eacute;s v&aacute;lassz!</h2>
+        </div>
+
+        <!-- Breadcrumb trail -->
+        <div id="dBreadcrumb" style="display:flex;gap:0.5rem;align-items:center;margin-bottom:1.5rem;min-height:32px;flex-wrap:wrap;"></div>
+
+        <!-- Döntési terület -->
+        <div id="dGame" style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;">
+            <!-- JS tölti ki -->
+        </div>
+
+        <div style="text-align:center;margin-top:1rem;">
+            <button id="dReset" onclick="dStart()" style="display:none;background:var(--bg-alt);border:2px solid var(--border);border-radius:12px;padding:0.6rem 2rem;font-size:1.1rem;font-weight:600;color:var(--text-mid);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;">&#8634; &Uacute;jrakezd&eacute;s</button>
+        </div>
+        <div class="slide-number">9 / 8</div>
+    </div>
+
+</div><!-- END slides-container -->
+
+<script>
+    // Decision game data
+    const dSteps = {
+        start: {
+            question: 'N\u00e9gyen megy\u00fcnk tov\u00e1bb a c\u00e9gben?',
+            icon: '\ud83e\udd1d',
+            sub: 'Leon\u00e1rd, Attila, Amir, Jani \u2014 mindenki benne marad?',
+            options: [
+                { label: 'Igen, n\u00e9gyen', color: 'var(--teal)', next: 'gergo', crumb: '\u2705 4 alap\u00edt\u00f3' },
+                { label: 'Nem, valaki kil\u00e9p', color: 'var(--red)', next: 'kilep', crumb: '\u274c Valaki kil\u00e9p' }
+            ]
+        },
+        gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'Jelenlegi fejleszt\u0151nk \u2014 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'gergo_yes', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'gergo_no', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
+            ]
+        },
+        gergo_yes: {
+            result: true,
+            icon: '\ud83d\ude80',
+            title: '4 alap\u00edt\u00f3 + Gerg\u0151',
+            details: [
+                { label: 'Havi k\u00f6lts\u00e9g', value: '1.350.000 Ft/h\u00f3 (500K alap + 850K Gerg\u0151)' },
+                { label: 'Csapat', value: '4 alap\u00edt\u00f3 (25-25-25-25%) + Gerg\u0151' },
+                { label: 'Vezet\u00e9s', value: 'Gerg\u0151 \u2192 Leon\u00e1rd ir\u00e1ny\u00edt\u00e1sa alatt' },
+                { label: 'Fejleszt\u00e9s', value: '3-4 szoftver p\u00e1rhuzamosan' },
+                { label: 'Term\u00e9kek', value: 'Legitas, C\u00e9gverzum, Sz\u00e1mlaverzum, Szerz\u0151d\u00e9sverzum' },
+                { label: 'Kapacit\u00e1s', value: '44h alap\u00edt\u00f3k + Gerg\u0151 40h = ~84 \u00f3ra/h\u00e9t' },
+                { label: 'Meeting', value: 'Heti st\u00e1tusz meeting \u2014 halad\u00e1s, blocker-ek, priorit\u00e1sok' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd + Gerg\u0151', hours: '12h + 40h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum, Sz\u00e1mlaverzum, Legitas', color: 'var(--teal)' },
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + 1 v\u00e1lasztott szoftver (pl. Anyway ATS)', color: 'var(--teal-dark)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: '1 v\u00e1lasztott szoftver (pl. CRM rendszer)', color: 'var(--gold)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: '2 v\u00e1lasztott szoftver (pl. ERP, Marketing APP)', color: 'var(--blue)' }
+            ],
+            color: 'var(--teal)'
+        },
+        gergo_no: {
+            question: 'Felv\u00e9sz\u00fcnk valakit Gerg\u0151 hely\u00e9re?',
+            icon: '\ud83d\udc64',
+            sub: 'Gerg\u0151t elengedt\u00fck \u2014 mi legyen?',
+            options: [
+                { label: 'Seniorabb vibe k\u00f3dol\u00f3', color: 'var(--teal)', next: 'hire_senior', crumb: 'Senior vibe k\u00f3dol\u00f3' },
+                { label: 'Olcs\u00f3bb, kreat\u00edvabb', color: 'var(--gold)', next: 'hire_junior', crumb: 'Junior vibe k\u00f3dol\u00f3' },
+                { label: 'Senkit, csak AI', color: 'var(--text-muted)', next: 'hire_nobody', crumb: 'Nincs felv\u00e9tel' }
+            ]
+        },
+        hire_senior: {
+            result: true,
+            icon: '\ud83d\ude80',
+            title: '4 alap\u00edt\u00f3 + Senior vibe k\u00f3dol\u00f3',
+            details: [
+                { label: 'Havi k\u00f6lts\u00e9g', value: '~1.500.000+ Ft/h\u00f3 (500K alap + ~1M+ senior b\u00e9r)' },
+                { label: 'Csapat', value: '4 alap\u00edt\u00f3 (25-25-25-25%) + \u00faj fejleszt\u0151' },
+                { label: '\u00daj poz\u00edci\u00f3', value: 'Senior vibe k\u00f3dol\u00f3 \u2014 teljes \u00e1ll\u00e1s' },
+                { label: 'Vezet\u00e9s', value: 'Leon\u00e1rd ir\u00e1ny\u00edt\u00e1sa alatt' },
+                { label: 'El\u0151ny', value: 'Tapasztaltabb, \u00f6n\u00e1ll\u00f3bb, gyorsabb output' },
+                { label: 'H\u00e1tr\u00e1ny', value: 'Magasabb b\u00e9rk\u00f6lts\u00e9g mint Gerg\u0151' },
+                { label: 'Kapacit\u00e1s', value: '44h alap\u00edt\u00f3k + 40h fejleszt\u0151 = ~84 \u00f3ra/h\u00e9t' },
+                { label: 'Meeting', value: 'Heti st\u00e1tusz meeting \u2014 halad\u00e1s, blocker-ek, priorit\u00e1sok' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd + Senior', hours: '12h + 40h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum, Sz\u00e1mlaverzum, Legitas', color: 'var(--teal)' },
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + 1 v\u00e1lasztott szoftver (pl. Anyway ATS)', color: 'var(--teal-dark)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: '1 v\u00e1lasztott szoftver (pl. CRM rendszer)', color: 'var(--gold)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: '2 v\u00e1lasztott szoftver (pl. ERP, Marketing APP)', color: 'var(--blue)' }
+            ],
+            color: 'var(--teal)'
+        },
+        hire_junior: {
+            result: true,
+            icon: '\ud83c\udf1f',
+            title: '4 alap\u00edt\u00f3 + Junior vibe k\u00f3dol\u00f3',
+            details: [
+                { label: 'Havi k\u00f6lts\u00e9g', value: '~1.000.000-1.200.000 Ft/h\u00f3 (500K alap + 500-700K b\u00e9r)' },
+                { label: 'Csapat', value: '4 alap\u00edt\u00f3 (25-25-25-25%) + \u00faj fejleszt\u0151' },
+                { label: '\u00daj poz\u00edci\u00f3', value: 'Junior vibe k\u00f3dol\u00f3 \u2014 teljes \u00e1ll\u00e1s, alacsonyabb b\u00e9r' },
+                { label: 'Vezet\u00e9s', value: 'Leon\u00e1rd ir\u00e1ny\u00edt\u00e1sa alatt' },
+                { label: 'El\u0151ny', value: 'Olcs\u00f3bb, kreat\u00edvabb, \u00f6n\u00e1ll\u00f3bb gondolkod\u00e1s' },
+                { label: 'H\u00e1tr\u00e1ny', value: 'Kevesebb tapasztalat, t\u00f6bb mentori id\u0151' },
+                { label: 'Kapacit\u00e1s', value: '44h alap\u00edt\u00f3k + 40h fejleszt\u0151 = ~84 \u00f3ra/h\u00e9t' },
+                { label: 'Meeting', value: 'Heti st\u00e1tusz meeting \u2014 halad\u00e1s, blocker-ek, priorit\u00e1sok' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd + Junior', hours: '12h + 40h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum, Sz\u00e1mlaverzum, Legitas', color: 'var(--teal)' },
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + 1 v\u00e1lasztott szoftver (pl. Anyway ATS)', color: 'var(--teal-dark)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: '1 v\u00e1lasztott szoftver (pl. CRM rendszer)', color: 'var(--gold)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: '2 v\u00e1lasztott szoftver (pl. ERP, Marketing APP)', color: 'var(--blue)' }
+            ],
+            color: 'var(--gold)'
+        },
+        hire_nobody: {
+            result: true,
+            icon: '\ud83e\udd16',
+            title: '4 alap\u00edt\u00f3, csak AI eszk\u00f6z\u00f6k',
+            details: [
+                { label: 'Havi k\u00f6lts\u00e9g', value: '500.000 Ft/h\u00f3 (csak alap k\u00f6lts\u00e9gek)' },
+                { label: 'Megtakar\u00edt\u00e1s', value: '850.000 Ft/h\u00f3 Gerg\u0151h\u00f6z k\u00e9pest' },
+                { label: 'Csapat', value: '4 alap\u00edt\u00f3 (25-25-25-25%) \u2014 nincs alkalmazott' },
+                { label: 'Fejleszt\u00e9s', value: 'Claude Code, Cursor, Copilot \u2014 AI-vez\u00e9relt' },
+                { label: 'El\u0151ny', value: 'Legkisebb fix k\u00f6lts\u00e9g, maxim\u00e1lis agilit\u00e1s' },
+                { label: 'Kapacit\u00e1s', value: '44 \u00f3ra/h\u00e9t (csak alap\u00edt\u00f3k)' },
+                { label: 'Meeting', value: 'Heti st\u00e1tusz meeting \u2014 halad\u00e1s, blocker-ek, priorit\u00e1sok' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd', hours: '12h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum', color: 'var(--teal)' },
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + 1 v\u00e1lasztott szoftver (pl. Anyway ATS)', color: 'var(--teal-dark)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: '1 v\u00e1lasztott szoftver (pl. CRM rendszer)', color: 'var(--gold)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: '2 v\u00e1lasztott szoftver (pl. ERP, Marketing APP)', color: 'var(--blue)' }
+            ],
+            color: 'var(--blue)'
+        },
+        kilep: {
+            question: 'Ki l\u00e9p ki?',
+            icon: '\ud83d\udeaa',
+            sub: 'V\u00e1laszd ki, ki hagyja el a c\u00e9get',
+            options: [
+                { label: 'Leon\u00e1rd', color: 'var(--teal)', next: 'leo_out', crumb: 'Leon\u00e1rd kil\u00e9p' },
+                { label: 'Attila', color: 'var(--gold)', next: 'attila_out', crumb: 'Attila kil\u00e9p' },
+                { label: 'Amir', color: 'var(--blue)', next: 'amir_out', crumb: 'Amir kil\u00e9p' },
+                { label: 'Jani', color: 'var(--teal-dark)', next: 'jani_out', crumb: 'Jani kil\u00e9p' },
+                { label: 'Gymbase l\u00e9p ki', color: 'var(--orange)', next: 'gymbase_out', crumb: 'Gymbase kil\u00e9p' },
+                { label: 'TDS l\u00e9p ki', color: 'var(--red)', next: 'tds_out', crumb: 'TDS kil\u00e9p' }
+            ]
+        },
+        leo_out: {
+            result: true, icon: '\ud83d\udeaa',
+            title: 'Leon\u00e1rd kil\u00e9p',
+            details: [
+                { label: 'Kiv\u00e1s\u00e1rl\u00e1s', value: '500.000 Ft \u2014 a 25%-os r\u00e9sz\u00e9rt' },
+                { label: 'Marad\u00f3k', value: 'Attila + Amir + Jani (33-33-33%)' },
+                { label: 'Kies\u0151 szerep', value: 'Sales, \u00fczletfejleszt\u00e9s, full-stack, operat\u00edv vezet\u00e9s' },
+                { label: 'Kock\u00e1zat', value: 'Legitas, C\u00e9gverzum, Pokertimer fejleszt\u00e9s \u00e1ll' },
+                { label: 'K\u00f6v. l\u00e9p\u00e9s', value: 'Sales \u00e9s dev feladatok \u00fajraoszt\u00e1sa' }
+            ],
+            assignments: [
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + Anyway ATS + Leon\u00e1rd projektjei \u00e1tveszi', color: 'var(--teal-dark)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: 'CRM rendszer + marketing', color: 'var(--gold)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: 'ERP, Marketing APP + Leon\u00e1rd feladatai r\u00e9szben', color: 'var(--blue)' }
+            ],
+            color: 'var(--teal)'
+        },
+        attila_out: {
+            result: true, icon: '\ud83d\udeaa',
+            title: 'Attila kil\u00e9p',
+            details: [
+                { label: 'Kiv\u00e1s\u00e1rl\u00e1s', value: '500.000 Ft \u2014 a 25%-os r\u00e9sz\u00e9rt' },
+                { label: 'Marad\u00f3k', value: 'Leon\u00e1rd + Amir + Jani (33-33-33%)' },
+                { label: 'Kies\u0151 szerep', value: 'TDHR Group kapcsolat, marketing, brand, \u00fcgyf\u00e9lh\u00e1l\u00f3zat' },
+                { label: 'Kock\u00e1zat', value: 'TDHR/TDI kapcsolat gyeng\u00fcl, marketing hi\u00e1nyzik' },
+                { label: 'K\u00f6v. l\u00e9p\u00e9s', value: 'Marketing \u00e9s \u00fcgyf\u00e9lkapcsolatok \u00fajraoszt\u00e1sa' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd', hours: '12h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum + marketing \u00e1tv\u00e9tel', color: 'var(--teal)' },
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + Anyway ATS', color: 'var(--teal-dark)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: 'ERP, Marketing APP', color: 'var(--blue)' }
+            ],
+            color: 'var(--gold)'
+        },
+        amir_out: {
+            result: true, icon: '\ud83d\udeaa',
+            title: 'Amir kil\u00e9p',
+            details: [
+                { label: 'Kiv\u00e1s\u00e1rl\u00e1s', value: '500.000 Ft \u2014 a 25%-os r\u00e9sz\u00e9rt' },
+                { label: 'Marad\u00f3k', value: 'Leon\u00e1rd + Attila + Jani (33-33-33%)' },
+                { label: 'Kies\u0151 szerep', value: 'Strat\u00e9giai l\u00e1t\u00e1sm\u00f3d, piaci kapcsolatok' },
+                { label: 'Hat\u00e1s', value: 'Legkisebb operat\u00edv hat\u00e1s, er\u0151s h\u00e1rmas marad' },
+                { label: 'K\u00f6v. l\u00e9p\u00e9s', value: 'Strat\u00e9giai feladatok \u00fajraoszt\u00e1sa' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd', hours: '12h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum + Amir projektjei', color: 'var(--teal)' },
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver fenntart\u00e1s + Anyway ATS', color: 'var(--teal-dark)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: 'CRM rendszer', color: 'var(--gold)' }
+            ],
+            color: 'var(--blue)'
+        },
+        jani_out: {
+            result: true, icon: '\ud83d\udeaa',
+            title: 'Jani kil\u00e9p',
+            details: [
+                { label: 'Kiv\u00e1s\u00e1rl\u00e1s', value: '500.000 Ft \u2014 a 25%-os r\u00e9sz\u00e9rt' },
+                { label: 'Marad\u00f3k', value: 'Leon\u00e1rd + Attila + Amir (33-33-33%)' },
+                { label: 'Kies\u0151 szerep', value: 'CTO, szerver, infra, Anyway ATS, DevOps' },
+                { label: 'Kock\u00e1zat', value: 'Kritikus! Technikai vezet\u00e9s elveszik, Anyway \u00e1ll' },
+                { label: 'K\u00f6v. l\u00e9p\u00e9s', value: '\u00daj CTO keres\u00e9se vagy k\u00fcls\u0151 fejleszt\u0151' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd', hours: '12h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum + szerver \u00e1tv\u00e9tel', color: 'var(--teal)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: 'CRM rendszer', color: 'var(--gold)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: 'ERP, Marketing APP', color: 'var(--blue)' }
+            ],
+            color: 'var(--teal-dark)'
+        },
+        gymbase_out: {
+            result: true, icon: '\ud83c\udfcb\ufe0f',
+            title: 'Gymbase kil\u00e9p (Jani + Amir)',
+            details: [
+                { label: 'Kiv\u00e1s\u00e1rl\u00e1s', value: '1.000.000 Ft \u2014 c\u00e9g kiv\u00e1s\u00e1rl\u00e1si \u00e1r' },
+                { label: 'Kil\u00e9p\u0151k', value: 'Jani \u00e9s Amir (Gymbase = \u0151k ketten)' },
+                { label: 'Marad\u00f3k', value: 'Leon\u00e1rd + Attila (50-50%)' },
+                { label: 'Kock\u00e1zat', value: 'CTO \u00e9s strat\u00e9gia kiesik, szerver kezel\u00e9s megoldand\u00f3' },
+                { label: 'K\u00f6v. l\u00e9p\u00e9s', value: '\u00daj CTO / fejleszt\u0151 keres\u00e9se, infra \u00e1tv\u00e9tel' }
+            ],
+            assignments: [
+                { name: 'Leon\u00e1rd', hours: '12h/h\u00e9t', projects: 'C\u00e9gverzum, Szerz\u0151d\u00e9sverzum + szerver \u00e1tv\u00e9tel + Jani projektjei', color: 'var(--teal)' },
+                { name: 'Attila', hours: '10h/h\u00e9t', projects: 'CRM rendszer + Amir projektjei (ERP, Marketing)', color: 'var(--gold)' }
+            ],
+            color: 'var(--orange)'
+        },
+        tds_out: {
+            result: true, icon: '\ud83c\udfe2',
+            title: 'TDS kil\u00e9p (Leon\u00e1rd + Attila)',
+            details: [
+                { label: 'Kiv\u00e1s\u00e1rl\u00e1s', value: '1.000.000 Ft \u2014 c\u00e9g kiv\u00e1s\u00e1rl\u00e1si \u00e1r' },
+                { label: 'Kil\u00e9p\u0151k', value: 'Leon\u00e1rd \u00e9s Attila (TDS = \u0151k ketten)' },
+                { label: 'Marad\u00f3k', value: 'Jani + Amir (50-50%)' },
+                { label: 'Kock\u00e1zat', value: 'Sales, \u00fczletfejleszt\u00e9s, marketing, TDHR kapcsolat kiesik' },
+                { label: 'K\u00f6v. l\u00e9p\u00e9s', value: 'Sales \u00e9s marketing p\u00f3tl\u00e1sa, \u00fcgyf\u00e9lh\u00e1l\u00f3zat \u00e1tv\u00e9tel' }
+            ],
+            assignments: [
+                { name: 'Jani', hours: '10h/h\u00e9t', projects: 'Szerver + Anyway ATS + Leon\u00e1rd projektjei \u00e1tv\u00e9tel', color: 'var(--teal-dark)' },
+                { name: 'Amir', hours: '12h/h\u00e9t', projects: 'Minden m\u00e1s projekt + sales/marketing \u00e1tv\u00e9tel', color: 'var(--blue)' }
+            ],
+            color: 'var(--red)'
+        }
+    };
+
+    let dPath = [];
+
+    function renderAssignments(assignments) {
+        let html = '<div style="margin-top:1rem;width:100%;">';
+        html += '<div style="font-family:\'DM Serif Display\',serif;font-size:1.2rem;color:var(--text);text-align:center;margin-bottom:0.7rem;">Projekt kioszt\u00e1s</div>';
+        html += '<div style="display:grid;grid-template-columns:repeat(' + assignments.length + ', 1fr);gap:0.8rem;">';
+        assignments.forEach(function(a) {
+            html += '<div style="background:var(--card);border:2px solid ' + a.color + ';border-radius:14px;padding:0.8rem 1rem;text-align:center;box-shadow:0 3px 12px rgba(47,100,130,0.08);position:relative;overflow:hidden;">';
+            html += '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:' + a.color + ';"></div>';
+            html += '<div style="font-family:\'DM Serif Display\',serif;font-size:1.1rem;color:' + a.color + ';margin-bottom:0.2rem;margin-top:0.2rem;">' + a.name + '</div>';
+            html += '<div style="font-size:0.75rem;font-weight:800;color:' + a.color + ';opacity:0.7;margin-bottom:0.3rem;">' + (a.hours || '') + '</div>';
+            html += '<div style="font-size:0.85rem;color:var(--text-mid);line-height:1.4;font-weight:500;">' + a.projects + '</div>';
+            html += '</div>';
+        });
+        html += '</div></div>';
+        return html;
+    }
+
+    function dStart() {
+        dPath = [];
+        dRender('start');
+    }
+
+    function dRender(stepId) {
+        const step = dSteps[stepId];
+        const game = document.getElementById('dGame');
+        const bc = document.getElementById('dBreadcrumb');
+        const resetBtn = document.getElementById('dReset');
+
+        // Breadcrumb
+        bc.innerHTML = dPath.map(p =>
+            '<span style="background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;padding:0.3rem 0.8rem;font-size:0.95rem;font-weight:600;color:var(--text-mid);">' + p + '</span>' +
+            '<span style="color:var(--border);font-size:1.2rem;">\u2192</span>'
+        ).join('');
+
+        if (step.result) {
+            // Fancy result
+            resetBtn.style.display = 'inline-block';
+            const colors = [
+                { bg: 'linear-gradient(135deg, #E8F5F5 0%, #EAF2F7 100%)', border: 'var(--teal)', accent: 'var(--teal-dark)' },
+                { bg: 'linear-gradient(135deg, #FBF5E0 0%, #F5E8B0 100%)', border: 'var(--gold)', accent: '#B8860B' },
+                { bg: 'linear-gradient(135deg, #EAF2F7 0%, #E8F5F5 100%)', border: 'var(--blue)', accent: '#1E4A64' },
+                { bg: 'linear-gradient(135deg, #FDEDEC 0%, #FBF5E0 100%)', border: 'var(--red)', accent: '#922B21' },
+                { bg: 'linear-gradient(135deg, #E8F5F5 0%, #FBF5E0 100%)', border: 'var(--teal)', accent: 'var(--teal-dark)' }
+            ];
+            game.innerHTML = `
+                <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1rem;">
+                    <div style="font-size:2.5rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));">${step.icon}</div>
+                    <div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:2rem;color:${step.color};line-height:1.1;">${step.title}</div>
+                        <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.3rem;">
+                            ${dPath.map(p => '<span style="background:rgba(47,100,130,0.08);border-radius:12px;padding:0.15rem 0.6rem;font-size:0.75rem;font-weight:600;color:var(--text-muted);">' + p + '</span>').join('')}
+                        </div>
+                    </div>
+                </div>
+                <div style="
+                    display:grid;
+                    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+                    gap:0.8rem;
+                    width:100%;
+                    max-width:100%;
+                ">
+                    ${step.details.map((d, i) => {
+                        const c = colors[i % colors.length];
+                        return `
+                        <div style="
+                            background:${c.bg};
+                            border:2px solid ${c.border};
+                            border-radius:14px;
+                            padding:0.8rem 1rem;
+                            box-shadow:0 3px 12px rgba(47,100,130,0.08);
+                            position:relative;
+                            overflow:hidden;
+                        ">
+                            <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:${c.border};border-radius:2px;"></div>
+                            <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:${c.accent};font-weight:800;margin-bottom:0.2rem;padding-left:0.4rem;">${d.label}</div>
+                            <div style="font-size:0.95rem;color:var(--text);font-weight:600;line-height:1.3;padding-left:0.4rem;">${d.value}</div>
+                        </div>`;
+                    }).join('')}
+                </div>
+                ${step.assignments ? renderAssignments(step.assignments) : ''}
+            `;
+            game.style.animation = 'fadeIn 0.4s ease-out';
+        } else {
+            // Question with options
+            resetBtn.style.display = dPath.length > 0 ? 'inline-block' : 'none';
+            game.innerHTML = `
+                <div style="text-align:center;margin-bottom:2.5rem;">
+                    <div style="font-size:4.5rem;margin-bottom:0.8rem;">${step.icon}</div>
+                    <div style="font-family:'DM Serif Display',serif;font-size:2.8rem;color:var(--text);margin-bottom:0.5rem;">${step.question}</div>
+                    <div style="font-size:1.2rem;color:var(--text-muted);">${step.sub}</div>
+                </div>
+                <div style="display:flex;gap:${step.options.length > 3 ? '1rem' : '2rem'};justify-content:center;flex-wrap:wrap;">
+                    ${step.options.map((o, i) => `
+                        <button onclick="dChoose('${o.next}','${o.crumb.replace(/'/g, "\\'")}')" style="
+                            background:var(--card);
+                            border:3px solid ${o.color};
+                            border-radius:${step.options.length > 3 ? '18px' : '24px'};
+                            padding:${step.options.length > 3 ? '1.2rem 2rem' : '2rem 3.5rem'};
+                            font-size:${step.options.length > 3 ? '1.15rem' : '1.5rem'};
+                            font-weight:800;
+                            color:${o.color};
+                            cursor:pointer;
+                            font-family:'DM Sans',sans-serif;
+                            transition:all 0.25s;
+                            box-shadow:0 4px 20px rgba(47,100,130,0.08);
+                            min-width:${step.options.length > 3 ? '180px' : '260px'};
+                        " onmouseover="this.style.background='${o.color}';this.style.color='#fff';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 32px rgba(47,100,130,0.2)';"
+                           onmouseout="this.style.background='var(--card)';this.style.color='${o.color}';this.style.transform='';this.style.boxShadow='0 4px 20px rgba(47,100,130,0.08)';">
+                            ${o.label}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            game.style.animation = 'fadeIn 0.4s ease-out';
+        }
+    }
+
+    function dChoose(nextId, crumb) {
+        dPath.push(crumb);
+        dRender(nextId);
+    }
+
+    // Auto-start when slide becomes active
+    const obs = new MutationObserver(() => {
+        const s8 = document.getElementById('slide-8');
+        if (s8 && s8.classList.contains('active') && document.getElementById('dGame').innerHTML === '') {
+            dStart();
+        }
+    });
+    obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    // Init immediately
+    dStart();
+    </script>
+
+<script>
+    const container = document.getElementById('slidesContainer');
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    function updateUI(){
+        document.getElementById('slideIndicator').textContent=(currentSlide+1)+' / '+totalSlides;
+        document.getElementById('progressBar').style.width=((currentSlide+1)/totalSlides*100)+'%';
+        slides.forEach((s,i)=>s.classList.toggle('active',i===currentSlide));
+    }
+    function goToSlide(i){if(i<0||i>=totalSlides)return;currentSlide=i;slides[i].scrollIntoView({behavior:'smooth',inline:'start'});updateUI();}
+    function nextSlide(){goToSlide(currentSlide+1);}
+    function prevSlide(){goToSlide(currentSlide-1);}
+    document.addEventListener('keydown',e=>{
+        if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide();}
+        if(e.key==='ArrowLeft'){e.preventDefault();prevSlide();}
+        if(e.key==='Home'){e.preventDefault();goToSlide(0);}
+        if(e.key==='End'){e.preventDefault();goToSlide(totalSlides-1);}
+    });
+    let t;container.addEventListener('scroll',()=>{clearTimeout(t);t=setTimeout(()=>{currentSlide=Math.round(container.scrollLeft/window.innerWidth);updateUI();},100);});
+    updateUI();
+</script>
+</body>
+</html>
