@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIway — Szolgáltatási Portfólió & Bevételi Lehetőségek</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #f5f7fa;
+            --bg2: #eef1f6;
+            --bg3: #e4e8ef;
+            --card: #ffffff;
+            --border: #d1d9e6;
+            --text: #1a1a2e;
+            --text2: #5a6178;
+            --accent: #5b4cdb;
+            --accent2: #6c5ce7;
+            --green: #00a89d;
+            --green2: #00c9b7;
+            --orange: #e8a317;
+            --red: #e74c3c;
+            --pink: #d63384;
+            --blue: #2d7dd2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(108,92,231,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,206,201,0.06) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(245,247,250,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 2rem;
+        }
+
+        .nav-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--accent2), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links { display: flex; gap: 0.3rem; list-style: none; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--text2); text-decoration: none; font-size: 0.75rem;
+            padding: 0.35rem 0.7rem; border-radius: 6px; transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); background: var(--bg3); }
+        .nav-back {
+            color: var(--accent2); text-decoration: none; font-size: 0.8rem;
+            display: flex; align-items: center; gap: 0.3rem;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 2rem 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #1a1a2e, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero p { color: var(--text2); font-size: 1rem; max-width: 700px; margin: 0 auto; }
+
+        /* Revenue summary bar */
+        .revenue-bar {
+            max-width: 1300px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .rev-stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .rev-stat .num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.2rem;
+        }
+
+        .rev-stat .label { color: var(--text2); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .rev-stat.green .num { color: var(--green); }
+        .rev-stat.orange .num { color: var(--orange); }
+        .rev-stat.purple .num { color: var(--accent2); }
+        .rev-stat.pink .num { color: var(--pink); }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+        /* Category section */
+        .category {
+            margin-bottom: 4rem;
+        }
+
+        .cat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cat-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; flex-shrink: 0;
+        }
+
+        .cat-header h2 { font-size: 1.4rem; font-weight: 800; }
+        .cat-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 1.5rem; margin-left: 3.8rem; }
+
+        /* Service cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .svc-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .svc-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108,92,231,0.12);
+        }
+
+        .svc-card .top-bar {
+            height: 3px;
+            position: absolute;
+            top: 0; left: 0; right: 0;
+        }
+
+        .svc-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .svc-card .desc {
+            color: var(--text2);
+            font-size: 0.83rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Pricing inside card */
+        .pricing-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-tag {
+            background: rgba(0,206,201,0.1);
+            border: 1px solid rgba(0,206,201,0.2);
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .price-tag.high {
+            background: rgba(253,203,110,0.1);
+            border-color: rgba(253,203,110,0.2);
+            color: var(--orange);
+        }
+
+        .price-tag.recurring {
+            background: rgba(108,92,231,0.1);
+            border-color: rgba(108,92,231,0.2);
+            color: var(--accent2);
+        }
+
+        /* Detail grid inside card */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .detail-item .d-label {
+            color: var(--text2);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-item .d-value {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Examples list */
+        .examples {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .examples-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text2);
+            margin-bottom: 0.4rem;
+        }
+
+        .examples ul {
+            list-style: none;
+            font-size: 0.8rem;
+            color: var(--text2);
+        }
+
+        .examples ul li {
+            padding: 0.2rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .examples ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent2);
+        }
+
+        /* Tags */
+        .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.8rem; }
+        .tag {
+            padding: 0.15rem 0.5rem; border-radius: 5px;
+            font-size: 0.65rem; font-weight: 600;
+        }
+        .tag.green { background: rgba(0,206,201,0.12); color: var(--green); }
+        .tag.purple { background: rgba(108,92,231,0.12); color: var(--accent2); }
+        .tag.orange { background: rgba(253,203,110,0.12); color: var(--orange); }
+        .tag.pink { background: rgba(253,121,168,0.12); color: var(--pink); }
+        .tag.blue { background: rgba(116,185,255,0.12); color: var(--blue); }
+        .tag.red { background: rgba(255,107,107,0.12); color: var(--red); }
+
+        /* Effort bar */
+        .effort-bar {
+            display: flex;
+            gap: 3px;
+            margin-top: 0.3rem;
+        }
+
+        .effort-dot {
+            width: 18px; height: 6px; border-radius: 3px;
+            background: var(--border);
+        }
+
+        .effort-dot.filled { background: var(--accent2); }
+        .effort-dot.filled.warn { background: var(--orange); }
+        .effort-dot.filled.high { background: var(--red); }
+
+        /* Summary table */
+        .summary-section { margin-top: 4rem; }
+
+        .summary-section h2 {
+            font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        thead { background: var(--bg3); }
+        th {
+            padding: 0.7rem 0.8rem; text-align: left; font-weight: 600;
+            color: var(--accent2); font-size: 0.72rem;
+            text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+        }
+        td { padding: 0.7rem 0.8rem; border-top: 1px solid var(--border); }
+        tr:hover td { background: rgba(108,92,231,0.04); }
+
+        .highlight-row { background: rgba(253,203,110,0.06); }
+        .highlight-row td { font-weight: 600; }
+
+        /* Revenue model section */
+        .rev-models {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .rev-model {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.3rem;
+        }
+
+        .rev-model h4 {
+            font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .rev-model .subtitle { color: var(--text2); font-size: 0.8rem; margin-bottom: 0.8rem; }
+
+        .rev-model ul {
+            list-style: none;
+            font-size: 0.8rem;
+        }
+
+        .rev-model ul li {
+            padding: 0.3rem 0;
+            color: var(--text2);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .rev-model ul li span:last-child { color: var(--green); font-weight: 600; }
+
+        /* Quick win banner */
+        .quick-win {
+            background: linear-gradient(135deg, rgba(0,206,201,0.08), rgba(108,92,231,0.08));
+            border: 1px solid rgba(0,206,201,0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .quick-win h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--green); }
+        .quick-win p { color: var(--text2); font-size: 0.9rem; max-width: 700px; margin: 0 auto; }
+
+        /* Strategy section */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .strat-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .strat-card h4 { font-weight: 700; margin-bottom: 0.8rem; }
+        .strat-card p { color: var(--text2); font-size: 0.85rem; line-height: 1.6; }
+
+        .phase-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .phase-tag.now { background: rgba(0,206,201,0.15); color: var(--green); }
+        .phase-tag.soon { background: rgba(253,203,110,0.15); color: var(--orange); }
+        .phase-tag.later { background: rgba(108,92,231,0.15); color: var(--accent2); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg2); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .svc-card, .rev-model, .rev-stat, .strat-card { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .svc-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <div class="nav-logo">AIway — Szolg&aacute;ltat&aacute;sok</div>
+        <ul class="nav-links">
+            <li><a href="#webdev">Webfejleszt&eacute;s</a></li>
+            <li><a href="#appdev">Appfejleszt&eacute;s</a></li>
+            <li><a href="#ai">AI megold&aacute;sok</a></li>
+            <li><a href="#consulting">Tan&aacute;csad&aacute;s</a></li>
+            <li><a href="#automation">Automatiz&aacute;l&aacute;s</a></li>
+            <li><a href="#maintenance">Karbantart&aacute;s</a></li>
+            <li><a href="#saas">SaaS term&eacute;kek</a></li>
+            <li><a href="#summary">&#214;sszegz&eacute;s</a></li>
+            <li><a href="osszefoglalo.html">&#8592; F&#337;oldal</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="hero">
+    <h1>Mivel kereshet p&eacute;nzt a AIway?</h1>
+    <p>Teljes IT szolg&aacute;ltat&aacute;si port&oacute;li&oacute; — &aacute;raz&aacute;ssal, c&eacute;lpiaccal, bev&eacute;teli potenci&aacute;llal &eacute;s p&eacute;ld&aacute;kkal</p>
+</header>
+
+<div class="revenue-bar">
+    <div class="rev-stat green">
+        <div class="num">7</div>
+        <div class="label">Szolg&aacute;ltat&aacute;si kateg&oacute;ria</div>
+    </div>
+    <div class="rev-stat orange">
+        <div class="num">28+</div>
+        <div class="label">Konkr&eacute;t szolg&aacute;ltat&aacute;s</div>
+    </div>
+    <div class="rev-stat purple">
+        <div class="num">150-800k</div>
+        <div class="label">Ft / &aacute;tlagos projekt</div>
+    </div>
+    <div class="rev-stat pink">
+        <div class="num">3 t&iacute;pus</div>
+        <div class="label">Egyszeri + Recurring + SaaS</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ============================================ -->
+    <!-- 1. WEBFEJLESZTÉS -->
+    <!-- ============================================ -->
+    <section class="category" id="webdev">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(116,185,255,0.15);">&#127760;</div>
+            <h2>1. Weboldal &amp; Webalkalmaz&aacute;s Fejleszt&eacute;s</h2>
+        </div>
+        <div class="cat-desc">A legelterjedtebb IT szolg&aacute;ltat&aacute;s — szinte minden c&eacute;gnek kell weboldal. Stabil, el&#337;re l&aacute;that&oacute; bev&eacute;tel.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--blue), var(--accent2))"></div>
+                <h3>&#128196; C&eacute;ges Bemutatkoz&oacute; Weboldal</h3>
+                <div class="desc">Modern, reszponz&iacute;v c&eacute;ges weboldal Eur&oacute;pai UI/UX standardok szerint. SEO optimaliz&aacute;lt, GDPR megfelel&#337;.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">150.000 – 400.000 Ft</span>
+                    <span class="price-tag recurring">+ 15.000 Ft/h&oacute; karbantart&aacute;s</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–3 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">KKV-k, v&aacute;llalkoz&oacute;k</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">Next.js / WordPress</div></div>
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div>
+                        <div class="effort-bar"><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot"></span><span class="effort-dot"></span><span class="effort-dot"></span></div>
+                    </div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Fodr&aacute;sz / kozmetikus bemutatkoz&oacute; oldal</li>
+                        <li>&Uuml;gyv&eacute;di iroda weboldal</li>
+                        <li>&Eacute;tterem / kav&eacute;z&oacute; weboldal men&uuml;vel</li>
+                        <li>&Eacute;p&iacute;t&#337;ipari c&eacute;g referenci&aacute;s oldal</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag blue">Alacsony k&uuml;sz&ouml;b</span>
+                    <span class="tag green">Gyors bev&eacute;tel</span>
+                    <span class="tag purple">Recurring</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--green2))"></div>
+                <h3>&#128722; E-commerce / Webshop</h3>
+                <div class="desc">Teljes online bolt term&eacute;kkezel&eacute;ssel, fizet&eacute;si kapuval (Stripe/Barion/SimplePay), k&eacute;szletkezel&eacute;ssel, sz&aacute;ml&aacute;z&aacute;ssal.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">400.000 – 1.500.000 Ft</span>
+                    <span class="price-tag recurring">+ 25-50.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">3–8 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">Keresked&#337;k, brand-ek</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">Next.js + Stripe/Shopify</div></div>
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div>
+                        <div class="effort-bar"><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot"></span><span class="effort-dot"></span></div>
+                    </div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Div&aacute;t webshop (ruh&aacute;zat, kieg&eacute;sz&iacute;t&#337;k)</li>
+                        <li>&Eacute;lelmiszer h&aacute;zsz&aacute;ll&iacute;t&aacute;s rendszer</li>
+                        <li>K&eacute;zm&#369;ves term&eacute;kek piact&eacute;r</li>
+                        <li>Digit&aacute;lis term&eacute;kek bolt (e-book, kurzus)</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Magas &aacute;rtag</span>
+                    <span class="tag green">Fizet&eacute;si kapu</span>
+                    <span class="tag purple">Recurring karbantart&aacute;s</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--accent), var(--pink))"></div>
+                <h3>&#128640; Egyedi Webalkalmaz&aacute;s (SaaS)</h3>
+                <div class="desc">Komplex web app fejleszt&eacute;s: dashboard-ok, admin panelek, CRM rendszerek, bels&#337; eszk&ouml;z&ouml;k, &uuml;gyf&eacute;lport&aacute;lok.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">800.000 – 5.000.000+ Ft</span>
+                    <span class="price-tag recurring">+ fejleszt&eacute;si retainer</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">4–16 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">K&ouml;z&eacute;pv&aacute;ll., startubok</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">React/Next.js + Node/Python</div></div>
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div>
+                        <div class="effort-bar"><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot"></span></div>
+                    </div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Ingatlankezel&#337; dashboard b&eacute;rl&#337;knek</li>
+                        <li>Bels&#337; HR rendszer / szabads&aacute;g nyilv&aacute;ntart&oacute;</li>
+                        <li>Orvosi id&#337;pont foglal&oacute; rendszer</li>
+                        <li>&Uuml;gyf&eacute;lport&aacute;l sz&aacute;ml&aacute;z&aacute;ssal</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag pink">Pr&eacute;mium projekt</span>
+                    <span class="tag purple">Long-term retainer</span>
+                    <span class="tag blue">Komplex</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--orange), var(--pink))"></div>
+                <h3>&#128279; Landing Page + Kamp&aacute;ny Oldal</h3>
+                <div class="desc">Konverzi&oacute;-optimaliz&aacute;lt landing page term&eacute;kbemutat&oacute;hoz, esem&eacute;nyhez, kamp&aacute;nyhoz. A/B teszt k&eacute;pes.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">80.000 – 200.000 Ft</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">2–5 nap</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">Marketing csapatok, startubok</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">React / HTML + Tailwind</div></div>
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div>
+                        <div class="effort-bar"><span class="effort-dot filled"></span><span class="effort-dot"></span><span class="effort-dot"></span><span class="effort-dot"></span><span class="effort-dot"></span></div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Gyors p&eacute;nz</span>
+                    <span class="tag orange">Ism&eacute;tl&#337;d&#337; ig&eacute;ny</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 2. APP FEJLESZTÉS -->
+    <!-- ============================================ -->
+    <section class="category" id="appdev">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(0,206,201,0.15);">&#128241;</div>
+            <h2>2. Mobilalkalmaz&aacute;s Fejleszt&eacute;s</h2>
+        </div>
+        <div class="cat-desc">Android &eacute;s iOS appok. Cross-platform (React Native/Flutter) a hat&eacute;konys&aacute;g&eacute;rt. Leon&aacute;rd PokerTimer tapasztalata j&oacute; alap.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--blue))"></div>
+                <h3>&#128242; &Uuml;zleti / V&aacute;llalati App</h3>
+                <div class="desc">C&eacute;gre szabott mobil app: &uuml;gyf&eacute;lkezel&eacute;s, nyilv&aacute;ntart&aacute;s, bels&#337; kommunik&aacute;ci&oacute;, raktark&eacute;szlet, stb.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">600.000 – 3.000.000 Ft</span>
+                    <span class="price-tag recurring">+ 30-80.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">6–14 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">KKV-k, keresked&eacute;s, logisztika</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">React Native / Flutter</div></div>
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div>
+                        <div class="effort-bar"><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot"></span></div>
+                    </div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Fut&aacute;r / k&eacute;zbes&iacute;t&#337; app GPS-szel</li>
+                        <li>H&#369;s&eacute;gprogram app &eacute;tteremhez</li>
+                        <li>Ingatlankezel&#337; b&eacute;rl&#337;i app</li>
+                        <li>Bels&#337; c&eacute;ges kommunik&aacute;ci&oacute;s app</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag pink">Pr&eacute;mium</span>
+                    <span class="tag purple">Recurring</span>
+                    <span class="tag green">Cross-platform</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--accent2), var(--green))"></div>
+                <h3>&#127918; Fogyaszt&oacute;i / Startup App</h3>
+                <div class="desc">B2C alkalm&aacute;zas MVP: t&aacute;rsas&aacute;gi appok, fitness tracker, esem&eacute;ny app, k&ouml;z&ouml;ss&eacute;gi platform.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">800.000 – 4.000.000 Ft</span>
+                    <span class="price-tag recurring">+ fejleszt&eacute;si retainer</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">8–16 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">Startubok, v&aacute;llalkoz&oacute;k</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">React Native + Firebase/Supabase</div></div>
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div>
+                        <div class="effort-bar"><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled"></span><span class="effort-dot filled warn"></span></div>
+                    </div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Id&#337;pontfoglal&oacute; app (fodr&aacute;sz, orvos)</li>
+                        <li>Edz&eacute;s / fitness k&ouml;vet&#337; app</li>
+                        <li>Helyi esem&eacute;ny keres&#337; app</li>
+                        <li>Di&aacute;k / tanul&oacute; k&ouml;z&ouml;ss&eacute;gi app</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Magas &aacute;rtag</span>
+                    <span class="tag blue">App Store publik&aacute;l&aacute;s</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--orange), var(--green))"></div>
+                <h3>&#128260; Megl&eacute;v&#337; App Moderniz&aacute;ci&oacute;</h3>
+                <div class="desc">R&eacute;gi, elavult app &aacute;t&iacute;r&aacute;sa modern technol&oacute;gi&aacute;ra. Vagy nat&iacute;v &rarr; cross-platform migr&aacute;ci&oacute;.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">300.000 – 2.000.000 Ft</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">4–12 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">C&eacute;gek r&eacute;gi appokkal</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Van megl&eacute;v&#337; &uuml;gyf&eacute;l</span>
+                    <span class="tag purple">Migr&aacute;ci&oacute;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 3. AI MEGOLDÁSOK -->
+    <!-- ============================================ -->
+    <section class="category" id="ai">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(108,92,231,0.15);">&#129302;</div>
+            <h2>3. AI Megold&aacute;sok &amp; Integr&aacute;ci&oacute;k</h2>
+        </div>
+        <div class="cat-desc">Ez a AIway f&#337; megk&uuml;l&ouml;nb&ouml;ztet&#337;je. AI-t integr&aacute;lni megl&eacute;v&#337; rendszerekbe — itt a legjobb a margin.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--accent), var(--accent2))"></div>
+                <h3>&#128172; AI Chatbot / Asszisztens</h3>
+                <div class="desc">Egyedi AI chatbot ami a c&eacute;g adataib&oacute;l v&aacute;laszol. &Uuml;gyf&eacute;lszolg&aacute;lat, bels&#337; tud&aacute;sb&aacute;zis, &eacute;rt&eacute;kes&iacute;t&eacute;si seg&iacute;ts&eacute;g.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">300.000 – 1.200.000 Ft setup</span>
+                    <span class="price-tag recurring">+ 30-100.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">2–6 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">B&aacute;rmely c&eacute;g weboldalal</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">Claude/GPT API + RAG</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Nagyon magas</div></div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Webshop term&eacute;k-aj&aacute;nl&oacute; chatbot</li>
+                        <li>Jogi t&aacute;j&eacute;koztat&oacute; chatbot &uuml;gyv&eacute;dnek</li>
+                        <li>Bels&#337; IT helpdesk bot alkalmazottaknak</li>
+                        <li>Ingatlan keres&#337; asszisztens</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag purple">AI core</span>
+                    <span class="tag green">Magas margin</span>
+                    <span class="tag orange">Recurring!</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--accent))"></div>
+                <h3>&#128200; AI Adatelemz&eacute;s &amp; Riporting</h3>
+                <div class="desc">C&eacute;ges adatokb&oacute;l automatikus insight-ok, el&#337;rejelz&eacute;sek, vizualiz&aacute;ci&oacute;k. Term&eacute;szetes nyelvem k&eacute;rdezhet&#337; adatb&aacute;zis.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">500.000 – 2.000.000 Ft</span>
+                    <span class="price-tag recurring">+ 50-150.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">4–10 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">K&ouml;z&eacute;pv&aacute;llalatok, pénz&uuml;gy</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">LLM + SQL + Dashboards</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Nagyon magas</div></div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>"Melyik term&eacute;k&uuml;nk hoz legjobban?" → AI v&aacute;laszol</li>
+                        <li>Havi aut&oacute;matikus &uuml;zleti riport email-ben</li>
+                        <li>Churn el&#337;rejelz&eacute;s el&#337;fizet&eacute;ses c&eacute;gnek</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag purple">AI core</span>
+                    <span class="tag pink">Pr&eacute;mium &aacute;r</span>
+                    <span class="tag orange">Enterprise</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--pink), var(--accent2))"></div>
+                <h3>&#128221; AI Tartalom Gener&aacute;l&aacute;s</h3>
+                <div class="desc">Blogcikkek, term&eacute;kle&iacute;r&aacute;sok, marketing sz&ouml;vegek, social media posztok gener&aacute;l&aacute;sa AI-val a c&eacute;g hangj&aacute;ban.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">150.000 – 500.000 Ft setup</span>
+                    <span class="price-tag recurring">+ 30-80.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–3 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">Webshopok, &uuml;gyn&ouml;ks&eacute;gek</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">LLM + Brand profil + CMS</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Magas</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Gyors MVP</span>
+                    <span class="tag purple">Recurring</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--orange), var(--accent))"></div>
+                <h3>&#128230; AI Dokumentum Feldolgoz&aacute;s</h3>
+                <div class="desc">Sz&aacute;ml&aacute;k, szerz&#337;d&eacute;sek, &#369;rlapok automatikus kiolvas&aacute;sa, kategoriz&aacute;l&aacute;sa, rendszerbe t&ouml;lt&eacute;se.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">400.000 – 1.500.000 Ft</span>
+                    <span class="price-tag recurring">+ volumen alap&uacute; d&iacute;j</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">3–8 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">K&ouml;nyvel&#337;k, jogi, HR</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">OCR + LLM + API integr&aacute;ci&oacute;</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Magas</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag purple">AI core</span>
+                    <span class="tag pink">Legitas tapasztalat</span>
+                    <span class="tag orange">Sk&aacute;l&aacute;zhat&oacute;</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--blue), var(--green))"></div>
+                <h3>&#127911; AI Hang &amp; Besz&eacute;d megold&aacute;sok</h3>
+                <div class="desc">Hangalap&uacute; asszisztens, call center AI, meeting &aacute;tirat, podcast/video feliratoz&aacute;s.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">500.000 – 2.000.000 Ft</span>
+                    <span class="price-tag recurring">+ haszn&aacute;lat alap&uacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">4–10 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">Call centerek, m&eacute;dia</div></div>
+                    <div class="detail-item"><div class="d-label">Technol&oacute;gia</div><div class="d-value">Whisper + TTS + LLM</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--orange)">K&ouml;zepes</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag blue">Voice AI</span>
+                    <span class="tag purple">N&ouml;vekv&#337; piac</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green2), var(--accent2))"></div>
+                <h3>&#128302; AI Integr&aacute;ci&oacute; megl&eacute;v&#337; rendszerbe</h3>
+                <div class="desc">B&aacute;rmely megl&eacute;v&#337; szoftverbe AI funkci&oacute; be&eacute;p&iacute;t&eacute;se: intelligens keres&eacute;s, aj&aacute;nl&oacute; rendszer, automatikus &ouml;sszefoglal&aacute;s.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">200.000 – 1.000.000 Ft</span>
+                    <span class="price-tag recurring">+ API k&ouml;lts&eacute;g + karbantart&aacute;s</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–6 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">B&aacute;rmely c&eacute;g szoftverrel</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Sz&eacute;les c&eacute;lpiac</span>
+                    <span class="tag purple">AI core</span>
+                    <span class="tag orange">Gyors</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 4. AI TANÁCSADÁS -->
+    <!-- ============================================ -->
+    <section class="category" id="consulting">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(253,203,110,0.15);">&#128161;</div>
+            <h2>4. AI Tan&aacute;csad&aacute;s &amp; Oktat&aacute;s</h2>
+        </div>
+        <div class="cat-desc">Magas margin, alacsony k&ouml;lts&eacute;g — csak a tud&aacute;sotokat adjt&aacute;tok el. Ide&aacute;lis bev&eacute;tel induláskor, mik&ouml;zben a term&eacute;kek k&eacute;sz&uuml;lnek.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--orange), var(--green))"></div>
+                <h3>&#127891; AI Strat&eacute;giai Tan&aacute;csad&aacute;s</h3>
+                <div class="desc">Fels&#337;vezet&#337;knek: hol &eacute;rdemes AI-t bevezetni a c&eacute;gben? ROI becsl&eacute;s, technol&oacute;giai &uuml;temterv, vend&oacute;r kiv&aacute;laszt&aacute;s.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">25.000 – 50.000 Ft/&oacute;ra</span>
+                    <span class="price-tag">vagy 200-500.000 Ft/projekt</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div><div class="d-value">Csak id&#337;</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">Fels&#337;vezet&#337;k, c&eacute;gtulajok</div></div>
+                    <div class="detail-item"><div class="d-label">Output</div><div class="d-value">AI strat&eacute;gia dokument&aacute;ci&oacute;</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">~90%</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Magas margin</span>
+                    <span class="tag green">Azonnali bev&eacute;tel</span>
+                    <span class="tag blue">Upsell alkalom</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--accent2), var(--orange))"></div>
+                <h3>&#128218; AI Workshop / K&eacute;pz&eacute;s</h3>
+                <div class="desc">F&eacute;lnapos-egynapos c&eacute;ges workshop: ChatGPT/Claude haszn&aacute;lat, prompt engineering, AI eszk&ouml;z&ouml;k a mindennapi munk&aacute;ban.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">150.000 – 500.000 Ft / alkalom</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">F&eacute;l – eg&eacute;sz nap</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">C&eacute;ges csapatok (5-30 f&#337;)</div></div>
+                    <div class="detail-item"><div class="d-label">El&#337;k&eacute;sz&uuml;let</div><div class="d-value">2-3 nap</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">~85%</div></div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">Workshop t&eacute;m&aacute;k</div>
+                    <ul>
+                        <li>"AI a mindennapi munk&aacute;ban" (irodai dolgozó;knak)</li>
+                        <li>"AI az &eacute;rt&eacute;kes&iacute;t&eacute;sben" (sales csapatnak)</li>
+                        <li>"AI a marketingben" (marketing csapatnak)</li>
+                        <li>"Prompt Engineering Masterclass" (IT csapatnak)</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Magas margin</span>
+                    <span class="tag green">Sk&aacute;l&aacute;zhat&oacute;</span>
+                    <span class="tag purple">Brand &eacute;p&iacute;t&eacute;s</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--accent))"></div>
+                <h3>&#128640; AI Audit / Felm&eacute;r&eacute;s</h3>
+                <div class="desc">Felm&eacute;rj&uuml;k a c&eacute;g jelenlegi folyamatait &eacute;s javaslatot tesz&uuml;nk: hol spór&oacute;lhat AI-val id&#337;t/p&eacute;nzt. Priorit&aacute;sos &uuml;temterv.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">100.000 – 300.000 Ft</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–2 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">Output</div><div class="d-value">Riport + aj&aacute;nl&aacute;s</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Bel&eacute;p&#337; term&eacute;k!</span>
+                    <span class="tag blue">Upsell → fejleszt&eacute;s</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--pink), var(--orange))"></div>
+                <h3>&#127909; Online AI Kurzus</h3>
+                <div class="desc">El&#337;re felvett online kurzus: "AI a v&aacute;llalkoz&aacute;sodban", "Prompt Engineering alap", stb. Egyszer megcsin&aacute;lod, ut&aacute;na passz&iacute;v bev&eacute;tel.</div>
+                <div class="pricing-row">
+                    <span class="price-tag recurring">9.900 – 49.900 Ft / tanul&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">El&#337;k&eacute;sz&uuml;let</div><div class="d-value">2–4 h&eacute;t (egyszer)</div></div>
+                    <div class="detail-item"><div class="d-label">Platform</div><div class="d-value">Teachable / saj&aacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;lpiac</div><div class="d-value">V&aacute;llalkoz&oacute;k, munkav&aacute;llal&oacute;k</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">~95%</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Passz&iacute;v bev&eacute;tel!</span>
+                    <span class="tag green">Sk&aacute;l&aacute;zhat&oacute;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 5. AUTOMATIZÁLÁS -->
+    <!-- ============================================ -->
+    <section class="category" id="automation">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(253,121,168,0.15);">&#9889;</div>
+            <h2>5. &Uuml;zleti Folyamat Automatiz&aacute;l&aacute;s</h2>
+        </div>
+        <div class="cat-desc">C&eacute;gek idej&uuml;k 40%-&aacute;t ism&eacute;tl&#337;d&#337; feladatokra pazarolj&aacute;k. Az automatiz&aacute;l&aacute;s azonnal m&eacute;rhet&#337; megtakar&iacute;t&aacute;st hoz.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--pink), var(--accent))"></div>
+                <h3>&#128260; Munkafolyamat Automatiz&aacute;l&aacute;s</h3>
+                <div class="desc">Ism&eacute;tl&#337;d&#337; feladatok automatiz&aacute;l&aacute;sa: email feldolgoz&aacute;s, adatbevitel, riportol&aacute;s, jóv&aacute;hagy&aacute;si folyamatok.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">200.000 – 800.000 Ft</span>
+                    <span class="price-tag recurring">+ 20-50.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–4 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">Tech</div><div class="d-value">n8n / Make + Python + AI</div></div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Email → CRM: be&eacute;rkez&#337; lead-ek aut&oacute;matikus feldolgoz&aacute;sa</li>
+                        <li>Sz&aacute;mla be&eacute;rkez&eacute;s → k&ouml;nyvel&eacute;s el&#337;k&eacute;sz&iacute;t&eacute;s</li>
+                        <li>Heti riport aut&oacute;matikus gener&aacute;l&aacute;s &eacute;s k&uuml;ld&eacute;s</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag green">M&eacute;rhet&#337; ROI</span>
+                    <span class="tag purple">Recurring</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--blue))"></div>
+                <h3>&#128279; Rendszer Integr&aacute;ci&oacute;k (API)</h3>
+                <div class="desc">K&uuml;l&ouml;nb&ouml;z&#337; rendszerek &ouml;sszekapcsol&aacute;sa: ERP ↔ webshop, CRM ↔ email, NAV ↔ k&ouml;nyvel&eacute;s, stb.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">150.000 – 600.000 Ft</span>
+                    <span class="price-tag recurring">+ karbantart&aacute;s</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–4 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">Tech</div><div class="d-value">REST API + Webhooks</div></div>
+                </div>
+                <div class="examples">
+                    <div class="examples-title">P&eacute;ld&aacute;k</div>
+                    <ul>
+                        <li>Shopify → Billingo aut&oacute;matikus sz&aacute;ml&aacute;z&aacute;s</li>
+                        <li>Google Sheets → CRM szinkron</li>
+                        <li>Weboldal form → Slack + CRM + email</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag blue">API</span>
+                    <span class="tag green">Gyors</span>
+                    <span class="tag purple">Recurring</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--orange), var(--pink))"></div>
+                <h3>&#128231; Email &amp; Marketing Automatiz&aacute;l&aacute;s</h3>
+                <div class="desc">AI-alap&uacute; email kampány: szegment&aacute;l&aacute;s, personaliz&aacute;lt tartalom, trigger-based k&uuml;ld&eacute;s, A/B teszt.</div>
+                <div class="pricing-row">
+                    <span class="price-tag">100.000 – 400.000 Ft</span>
+                    <span class="price-tag recurring">+ 20-40.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Id&#337;ig&eacute;ny</div><div class="d-value">1–3 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">Tech</div><div class="d-value">Resend / SendGrid + AI</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Recurring</span>
+                    <span class="tag green">M&eacute;rhet&#337;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 6. KARBANTARTÁS & SUPPORT -->
+    <!-- ============================================ -->
+    <section class="category" id="maintenance">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(255,107,107,0.15);">&#128736;</div>
+            <h2>6. Karbantart&aacute;s, Support &amp; DevOps</h2>
+        </div>
+        <div class="cat-desc">Stabil, havi recurring bev&eacute;tel. Minden &aacute;ltalaok k&eacute;sz&iacute;tett projekt ut&aacute;n automatikusan aj&aacute;nlhat&oacute;.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--green2))"></div>
+                <h3>&#128737; Havi Karbantart&aacute;si Csomag</h3>
+                <div class="desc">Weboldal/app friss&iacute;t&eacute;sek, biztons&aacute;gi patchek, uptime monitoring, havi riport, kis m&oacute;dos&iacute;t&aacute;sok.</div>
+                <div class="pricing-row">
+                    <span class="price-tag recurring">15.000 – 80.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">R&aacute;ford&iacute;t&aacute;s</div><div class="d-value">2-8 &oacute;ra/h&oacute;/&uuml;gyf&eacute;l</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Nagyon magas</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Stabil recurring</span>
+                    <span class="tag blue">Alacsony r&aacute;ford&iacute;t&aacute;s</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--blue), var(--accent))"></div>
+                <h3>&#9729; Szerver &amp; Cloud Menedzsment</h3>
+                <div class="desc">Szerver be&aacute;ll&iacute;t&aacute;s, deployment, CI/CD, SSL, backup, monitoring. "Ne a weboldallal kelljen foglalkozni."</div>
+                <div class="pricing-row">
+                    <span class="price-tag recurring">20.000 – 100.000 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Tech</div><div class="d-value">VPS / AWS / Hetzner</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Magas</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag purple">DevOps</span>
+                    <span class="tag green">Recurring</span>
+                </div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--red), var(--orange))"></div>
+                <h3>&#128680; S&uuml;rg&#337;ss&eacute;gi / Ad-hoc Fejleszt&eacute;s</h3>
+                <div class="desc">Gyors jav&iacute;t&aacute;sok, &uacute;j funkci&oacute;k igény szerint. "Holnapra kell ez a feature" — pr&eacute;mium &aacute;ron.</div>
+                <div class="pricing-row">
+                    <span class="price-tag high">20.000 – 40.000 Ft/&oacute;ra</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">Reag&aacute;l&aacute;si id&#337;</div><div class="d-value">24-48 &oacute;ra</div></div>
+                    <div class="detail-item"><div class="d-label">Margin</div><div class="d-value" style="color:var(--green)">Nagyon magas</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag red">Pr&eacute;mium &aacute;r</span>
+                    <span class="tag orange">Ad-hoc</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 7. SAAS TERMÉKEK -->
+    <!-- ============================================ -->
+    <section class="category" id="saas">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(162,155,254,0.15);">&#128176;</div>
+            <h2>7. Saj&aacute;t SaaS Term&eacute;kek</h2>
+        </div>
+        <div class="cat-desc">A legmagasabb long-term &eacute;rt&eacute;k. Egyszer meg&eacute;p&iacute;titek, ut&aacute;na el&#337;fizet&eacute;ses bev&eacute;tel. R&eacute;szletes lista az <a href="osszefoglalo.html#termekek" style="color:var(--accent2)">&#246;sszefoglal&oacute;ban</a>.</div>
+
+        <div class="services-grid">
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--orange), var(--accent2))"></div>
+                <h3>&#128640; AI Aj&aacute;nlat Gener&aacute;tor</h3>
+                <div class="desc">SaaS term&eacute;k: &uuml;gyf&eacute;l ig&eacute;ny → profi aj&aacute;nlat PDF-ben. Ti is haszn&aacute;lj&aacute;tok + eladjátok.</div>
+                <div class="pricing-row">
+                    <span class="price-tag recurring">$15/h&oacute; / user</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">MVP</div><div class="d-value">4-5 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;l</div><div class="d-value">100 fizet&#337; user = $1.500/h&oacute;</div></div>
+                </div>
+                <div class="tags"><span class="tag orange">TOP 1 javaslat</span><span class="tag green">Dogfooding</span></div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--green), var(--accent))"></div>
+                <h3>&#128172; AI Chatbot Platform</h3>
+                <div class="desc">White-label chatbot amit b&aacute;rmely KKV be&aacute;gyazhat. Aut&oacute;matikusan tanul a c&eacute;g weboldalr&oacute;l.</div>
+                <div class="pricing-row">
+                    <span class="price-tag recurring">9.900 – 79.900 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">MVP</div><div class="d-value">4-6 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;l</div><div class="d-value">50 &uuml;gyf&eacute;l = ~1.5M Ft/h&oacute;</div></div>
+                </div>
+                <div class="tags"><span class="tag orange">TOP 2 javaslat</span><span class="tag purple">SaaS</span></div>
+            </div>
+
+            <div class="svc-card">
+                <div class="top-bar" style="background:linear-gradient(90deg, var(--pink), var(--accent2))"></div>
+                <h3>&#128221; AI Szerz&#337;d&eacute;selemz&#337;</h3>
+                <div class="desc">Szerz&#337;d&eacute;s felt&ouml;lt&eacute;s → AI kock&aacute;zatelemz&eacute;s, &ouml;sszefoglal&aacute;s, javaslatok. Legitas tapasztalat alapj&aacute;n.</div>
+                <div class="pricing-row">
+                    <span class="price-tag recurring">14.900 Ft/h&oacute;</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item"><div class="d-label">MVP</div><div class="d-value">5-7 h&eacute;t</div></div>
+                    <div class="detail-item"><div class="d-label">C&eacute;l</div><div class="d-value">100 &uuml;gyf&eacute;l = ~1.5M Ft/h&oacute;</div></div>
+                </div>
+                <div class="tags"><span class="tag orange">TOP 3 javaslat</span><span class="tag pink">Meglev&#337; tapasztalat</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- QUICK WIN BANNER -->
+    <!-- ============================================ -->
+    <div class="quick-win">
+        <h3>&#9889; Azonnali bev&eacute;tel strat&eacute;gia</h3>
+        <p><strong>1. h&oacute;nap:</strong> AI tan&aacute;csad&aacute;s + workshop-ok (0 Ft befektet&eacute;s, azonnali bev&eacute;tel)<br>
+        <strong>2-3. h&oacute;nap:</strong> Weboldal/chatbot projektek (fizet&#337; &uuml;gyfelek)<br>
+        <strong>4+ h&oacute;nap:</strong> SaaS term&eacute;k bev&eacute;tel beindulása (passz&iacute;v + recurring)</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- BEVÉTELI MODELLEK -->
+    <!-- ============================================ -->
+    <section class="summary-section">
+        <h2>&#128176; Bev&eacute;teli Modellek &Ouml;sszehasonl&iacute;t&aacute;sa</h2>
+
+        <div class="rev-models">
+            <div class="rev-model">
+                <h4>&#128179; Egyszeri Projekt D&iacute;j</h4>
+                <div class="subtitle">Megcsin&aacute;ljuk → kifizetitek → k&eacute;sz</div>
+                <ul>
+                    <li><span>Landing page</span><span>80-200k Ft</span></li>
+                    <li><span>C&eacute;ges weboldal</span><span>150-400k Ft</span></li>
+                    <li><span>Webshop</span><span>400k-1.5M Ft</span></li>
+                    <li><span>Mobil app</span><span>600k-4M Ft</span></li>
+                    <li><span>Web app</span><span>800k-5M Ft</span></li>
+                    <li><span>AI integr&aacute;ci&oacute;</span><span>200k-2M Ft</span></li>
+                </ul>
+            </div>
+
+            <div class="rev-model">
+                <h4 style="color:var(--green)">&#128257; Recurring (havi)</h4>
+                <div class="subtitle">Folyamatos bev&eacute;tel — ez az ar&aacute;ny!</div>
+                <ul>
+                    <li><span>Karbantart&aacute;s</span><span>15-80k Ft/h&oacute;</span></li>
+                    <li><span>AI chatbot szolg&aacute;ltat&aacute;s</span><span>30-100k Ft/h&oacute;</span></li>
+                    <li><span>Cloud menedzsment</span><span>20-100k Ft/h&oacute;</span></li>
+                    <li><span>Adatelemz&eacute;s</span><span>50-150k Ft/h&oacute;</span></li>
+                    <li><span>Fejleszt&eacute;si retainer</span><span>100-400k Ft/h&oacute;</span></li>
+                </ul>
+            </div>
+
+            <div class="rev-model">
+                <h4 style="color:var(--orange)">&#128640; SaaS (sk&aacute;l&aacute;zhat&oacute;)</h4>
+                <div class="subtitle">A legmagasabb long-term &eacute;rt&eacute;k</div>
+                <ul>
+                    <li><span>AI Aj&aacute;nlat Gen.</span><span>~$15/user/h&oacute;</span></li>
+                    <li><span>AI Chatbot Platform</span><span>10-80k Ft/h&oacute;</span></li>
+                    <li><span>Szerz&#337;d&eacute;selemz&#337;</span><span>~15k Ft/h&oacute;</span></li>
+                    <li><span>Online kurzus</span><span>10-50k Ft/tanul&oacute;</span></li>
+                    <li><span><strong>C&eacute;l: 100 fizet&#337; user</strong></span><span><strong>1-2M Ft/h&oacute;</strong></span></li>
+                </ul>
+            </div>
+
+            <div class="rev-model">
+                <h4 style="color:var(--pink)">&#127891; Tan&aacute;csad&aacute;s (&oacute;rad&iacute;j)</h4>
+                <div class="subtitle">Leggyorsabban indul&oacute; bev&eacute;tel</div>
+                <ul>
+                    <li><span>AI strat&eacute;gia</span><span>25-50k Ft/&oacute;ra</span></li>
+                    <li><span>Workshop</span><span>150-500k Ft/alk.</span></li>
+                    <li><span>AI audit</span><span>100-300k Ft</span></li>
+                    <li><span>S&uuml;rg&#337;ss&eacute;gi fejleszt&eacute;s</span><span>20-40k Ft/&oacute;ra</span></li>
+                    <li><span><strong>Havi 40 &oacute;ra tan&aacute;csad&aacute;s</strong></span><span><strong>1-2M Ft/h&oacute;</strong></span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ÖSSZESÍTŐ TÁBLÁZAT -->
+    <!-- ============================================ -->
+    <section class="summary-section" id="summary">
+        <h2>&#128202; Teljes Szolg&aacute;ltat&aacute;si &Ouml;sszegz&eacute;s</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Szolg&aacute;ltat&aacute;s</th>
+                        <th>&Aacute;r (Ft)</th>
+                        <th>Recurring</th>
+                        <th>Margin</th>
+                        <th>R&aacute;ford&iacute;t&aacute;s</th>
+                        <th>Mikor indul?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="6" style="background:var(--bg3); font-weight:700; color:var(--blue);">&#127760; Webfejleszt&eacute;s</td></tr>
+                    <tr><td>C&eacute;ges weboldal</td><td>150-400k</td><td style="color:var(--green)">+15k/h&oacute;</td><td>60-70%</td><td>1-3 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>Webshop</td><td>400k-1.5M</td><td style="color:var(--green)">+25-50k/h&oacute;</td><td>55-65%</td><td>3-8 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>Web app (egyedi)</td><td>800k-5M</td><td style="color:var(--green)">Retainer</td><td>50-60%</td><td>4-16 h&eacute;t</td><td>1. h&oacute;napt&oacute;l</td></tr>
+                    <tr><td>Landing page</td><td>80-200k</td><td>—</td><td>75-85%</td><td>2-5 nap</td><td style="color:var(--green)">Azonnal</td></tr>
+
+                    <tr><td colspan="6" style="background:var(--bg3); font-weight:700; color:var(--green);">&#128241; Appfejleszt&eacute;s</td></tr>
+                    <tr><td>&Uuml;zleti mobil app</td><td>600k-3M</td><td style="color:var(--green)">+30-80k/h&oacute;</td><td>50-60%</td><td>6-14 h&eacute;t</td><td>2. h&oacute;napt&oacute;l</td></tr>
+                    <tr><td>Startup / B2C app</td><td>800k-4M</td><td style="color:var(--green)">Retainer</td><td>45-55%</td><td>8-16 h&eacute;t</td><td>3. h&oacute;napt&oacute;l</td></tr>
+                    <tr><td>App moderniz&aacute;ci&oacute;</td><td>300k-2M</td><td>—</td><td>55-65%</td><td>4-12 h&eacute;t</td><td>2. h&oacute;napt&oacute;l</td></tr>
+
+                    <tr><td colspan="6" style="background:var(--bg3); font-weight:700; color:var(--accent2);">&#129302; AI Megold&aacute;sok</td></tr>
+                    <tr class="highlight-row"><td>AI Chatbot</td><td>300k-1.2M</td><td style="color:var(--green)">+30-100k/h&oacute;</td><td style="color:var(--green)">70-80%</td><td>2-6 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr class="highlight-row"><td>AI Adatelemz&eacute;s</td><td>500k-2M</td><td style="color:var(--green)">+50-150k/h&oacute;</td><td style="color:var(--green)">70-80%</td><td>4-10 h&eacute;t</td><td>2. h&oacute;napt&oacute;l</td></tr>
+                    <tr><td>AI Tartalom gen.</td><td>150-500k</td><td style="color:var(--green)">+30-80k/h&oacute;</td><td style="color:var(--green)">75-85%</td><td>1-3 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>AI Dokument feldolg.</td><td>400k-1.5M</td><td style="color:var(--green)">Volumen alap&uacute;</td><td style="color:var(--green)">70-80%</td><td>3-8 h&eacute;t</td><td>2. h&oacute;napt&oacute;l</td></tr>
+                    <tr><td>AI Hang megold&aacute;sok</td><td>500k-2M</td><td>Haszn&aacute;lat alap&uacute;</td><td>60-70%</td><td>4-10 h&eacute;t</td><td>3. h&oacute;napt&oacute;l</td></tr>
+                    <tr><td>AI Integr&aacute;ci&oacute;</td><td>200k-1M</td><td style="color:var(--green)">Karbantart&aacute;s</td><td style="color:var(--green)">70-80%</td><td>1-6 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+
+                    <tr><td colspan="6" style="background:var(--bg3); font-weight:700; color:var(--orange);">&#128161; Tan&aacute;csad&aacute;s</td></tr>
+                    <tr class="highlight-row"><td>AI Strat&eacute;gia</td><td>25-50k/&oacute;ra</td><td>—</td><td style="color:var(--green)">~90%</td><td>Csak id&#337;</td><td style="color:var(--green);font-weight:700">MA!</td></tr>
+                    <tr class="highlight-row"><td>Workshop / K&eacute;pz&eacute;s</td><td>150-500k/alk.</td><td>Ism&eacute;tl&#337;d&#337;</td><td style="color:var(--green)">~85%</td><td>2-3 nap el&#337;k.</td><td style="color:var(--green);font-weight:700">MA!</td></tr>
+                    <tr><td>AI Audit</td><td>100-300k</td><td>—</td><td style="color:var(--green)">~80%</td><td>1-2 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>Online kurzus</td><td>10-50k/tanul&oacute;</td><td style="color:var(--green)">Passz&iacute;v!</td><td style="color:var(--green)">~95%</td><td>2-4 h&eacute;t (1x)</td><td>2. h&oacute;napt&oacute;l</td></tr>
+
+                    <tr><td colspan="6" style="background:var(--bg3); font-weight:700; color:var(--pink);">&#9889; Automatiz&aacute;l&aacute;s &amp; Support</td></tr>
+                    <tr><td>Workflow automatiz&aacute;l&aacute;s</td><td>200-800k</td><td style="color:var(--green)">+20-50k/h&oacute;</td><td>65-75%</td><td>1-4 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>Rendszer integr&aacute;ci&oacute;</td><td>150-600k</td><td style="color:var(--green)">Karbantart&aacute;s</td><td>60-70%</td><td>1-4 h&eacute;t</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>Karbantart&aacute;si csomag</td><td>—</td><td style="color:var(--green)">15-80k/h&oacute;</td><td style="color:var(--green)">80-90%</td><td>2-8 &oacute;/h&oacute;</td><td style="color:var(--green)">Azonnal</td></tr>
+                    <tr><td>Cloud menedzsment</td><td>—</td><td style="color:var(--green)">20-100k/h&oacute;</td><td style="color:var(--green)">75-85%</td><td>Folyamatos</td><td>1. h&oacute;napt&oacute;l</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- STRATÉGIA -->
+    <!-- ============================================ -->
+    <section class="summary-section">
+        <h2>&#127919; Aj&aacute;nlott Bev&eacute;teli Strat&eacute;gia</h2>
+
+        <div class="strategy-grid">
+            <div class="strat-card">
+                <span class="phase-tag now">F&Aacute;ZIS 1 — Azonnal</span>
+                <h4>Gyors p&eacute;nz (0-2. h&oacute;nap)</h4>
+                <p>
+                    <strong>1.</strong> AI tan&aacute;csad&aacute;s &eacute;s workshop-ok &eacute;rt&eacute;kes&iacute;t&eacute;se (0 Ft befektet&eacute;s)<br>
+                    <strong>2.</strong> Landing page-ek &eacute;s kisebb weboldalak v&aacute;llal&aacute;sa<br>
+                    <strong>3.</strong> AI chatbot els&#337; &uuml;gyf&eacute;lnek (referencia projekt)<br>
+                    <strong>4.</strong> Karbantart&aacute;si csomagok &eacute;rt&eacute;kes&iacute;t&eacute;se minden k&eacute;sz projekthez<br><br>
+                    <strong style="color:var(--green)">C&eacute;l: 500k – 1.5M Ft/h&oacute; bev&eacute;tel</strong>
+                </p>
+            </div>
+
+            <div class="strat-card">
+                <span class="phase-tag soon">F&Aacute;ZIS 2 — N&ouml;veked&eacute;s (3-6. h&oacute;nap)</span>
+                <h4>Stabiliz&aacute;l&aacute;s + SaaS indul&aacute;s</h4>
+                <p>
+                    <strong>1.</strong> Nagyobb projektek (webshop, &uuml;zleti app, AI integr&aacute;ci&oacute;)<br>
+                    <strong>2.</strong> Els&#337; SaaS term&eacute;k MVP &eacute;s lancel&eacute;s<br>
+                    <strong>3.</strong> Online kurzus elk&eacute;sz&iacute;t&eacute;se (passz&iacute;v bev&eacute;tel)<br>
+                    <strong>4.</strong> Recurring &uuml;gyf&eacute;lk&ouml;r &eacute;p&iacute;t&eacute;se (10+ &uuml;gyf&eacute;l)<br><br>
+                    <strong style="color:var(--orange)">C&eacute;l: 2-4M Ft/h&oacute; bev&eacute;tel</strong>
+                </p>
+            </div>
+
+            <div class="strat-card">
+                <span class="phase-tag later">F&Aacute;ZIS 3 — Sk&aacute;l&aacute;z&aacute;s (6-12. h&oacute;nap)</span>
+                <h4>SaaS + enterprise &uuml;gyfelek</h4>
+                <p>
+                    <strong>1.</strong> SaaS term&eacute;k 100+ fizet&#337; user-rel<br>
+                    <strong>2.</strong> Enterprise AI projektek (1-5M Ft+)<br>
+                    <strong>3.</strong> Tov&aacute;bbi alkalmazottak felv&eacute;tele<br>
+                    <strong>4.</strong> Nemzetk&ouml;zi piac tesztel&eacute;se (angol nyelv&#369; SaaS)<br><br>
+                    <strong style="color:var(--accent2)">C&eacute;l: 5-10M Ft/h&oacute; bev&eacute;tel</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer style="text-align:center; padding:3rem 2rem; border-top:1px solid var(--border); color:var(--text2); font-size:0.8rem;">
+    AIway — Szolg&aacute;ltat&aacute;si Portf&oacute;li&oacute; &middot; 2026. m&aacute;rcius &middot; <a href="osszefoglalo.html" style="color:var(--accent2)">&#8592; Vissza a f&#337; &ouml;sszefoglal&oacute;hoz</a>
+</footer>
+
+</body>
+</html>

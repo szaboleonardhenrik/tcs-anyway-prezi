@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIway — Passzív Bevétel: Reklámmal Pénzt Hozó Weboldalak & Appok</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        :root {
+            --bg: #f5f7fa; --bg2: #eef1f6; --bg3: #e4e8ef; --card: #ffffff;
+            --border: #d1d9e6; --text: #1a1a2e; --text2: #5a6178;
+            --accent: #5b4cdb; --accent2: #6c5ce7; --green: #00a89d; --green2: #00c9b7;
+            --orange: #e8a317; --red: #e74c3c; --pink: #d63384; --blue: #2d7dd2;
+            --yellow: #d4a017;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+        body::before { content:''; position:fixed; inset:0; background: radial-gradient(ellipse at 30% 50%,rgba(0,206,201,0.07) 0%,transparent 50%), radial-gradient(ellipse at 70% 30%,rgba(253,203,110,0.06) 0%,transparent 50%); z-index:-1; }
+
+        .nav { position:fixed; top:0; left:0; right:0; background:rgba(245,247,250,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); z-index:100; padding:0 2rem; }
+        .nav-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:60px; }
+        .nav-logo { font-weight:800; font-size:1.1rem; background:linear-gradient(135deg,var(--orange),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .nav-links { display:flex; gap:0.3rem; list-style:none; flex-wrap:wrap; }
+        .nav-links a { color:var(--text2); text-decoration:none; font-size:0.75rem; padding:0.35rem 0.7rem; border-radius:6px; transition:all 0.2s; }
+        .nav-links a:hover { color:var(--text); background:var(--bg3); }
+
+        .hero { padding:100px 2rem 40px; text-align:center; }
+        .hero-badge { display:inline-block; background:linear-gradient(135deg,var(--accent),var(--pink)); color:#fff; padding:0.3rem 1rem; border-radius:20px; font-size:0.75rem; font-weight:700; margin-bottom:1.5rem; }
+        .hero h1 { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; background:linear-gradient(135deg,#1a1a2e,var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:0.8rem; }
+        .hero p { color:var(--text2); font-size:1rem; max-width:700px; margin:0 auto; }
+
+        .container { max-width:1300px; margin:0 auto; padding:0 2rem 4rem; }
+
+        /* How it works */
+        .how-it-works { display:flex; justify-content:center; gap:1rem; margin:2.5rem auto; flex-wrap:wrap; max-width:900px; }
+        .how-step { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.2rem; text-align:center; flex:1; min-width:180px; }
+        .how-step .step-num { font-size:1.5rem; font-weight:900; margin-bottom:0.3rem; }
+        .how-step .step-icon { font-size:2rem; margin-bottom:0.3rem; }
+        .how-step .step-text { font-size:0.8rem; color:var(--text2); }
+        .how-arrow { display:flex; align-items:center; color:var(--border); font-size:1.5rem; }
+
+        /* Revenue calc */
+        .rev-calc { background:linear-gradient(135deg,rgba(253,203,110,0.08),rgba(0,206,201,0.08)); border:1px solid rgba(253,203,110,0.2); border-radius:16px; padding:2rem; margin:2rem 0 3rem; text-align:center; }
+        .rev-calc h3 { color:var(--orange); margin-bottom:1rem; }
+        .calc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; max-width:900px; margin:0 auto; }
+        .calc-item { background:rgba(0,0,0,0.04); border-radius:10px; padding:1rem; }
+        .calc-item .calc-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--text2); margin-bottom:0.3rem; }
+        .calc-item .calc-value { font-size:1.5rem; font-weight:800; }
+        .calc-item .calc-value.money { color:var(--green); }
+
+        /* Category */
+        .category { margin-bottom:4rem; }
+        .cat-header { display:flex; align-items:center; gap:1rem; margin-bottom:0.5rem; }
+        .cat-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+        .cat-header h2 { font-size:1.4rem; font-weight:800; }
+        .cat-desc { color:var(--text2); font-size:0.9rem; margin-bottom:1.5rem; margin-left:3.8rem; }
+
+        /* Idea cards */
+        .ideas-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:1.2rem; }
+        .idea-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.5rem; transition:all 0.3s; position:relative; overflow:hidden; }
+        .idea-card:hover { border-color:var(--orange); transform:translateY(-2px); box-shadow:0 8px 30px rgba(253,203,110,0.1); }
+        .idea-card .top-bar { height:3px; position:absolute; top:0; left:0; right:0; }
+        .idea-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:0.5rem; }
+        .idea-card .desc { color:var(--text2); font-size:0.83rem; margin-bottom:1rem; line-height:1.5; }
+
+        .metrics { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem; margin-bottom:0.8rem; }
+        .metric { background:var(--bg3); border-radius:8px; padding:0.5rem 0.7rem; }
+        .metric .m-label { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--text2); }
+        .metric .m-value { font-size:0.85rem; font-weight:700; }
+        .metric .m-value.green { color:var(--green); }
+        .metric .m-value.orange { color:var(--orange); }
+        .metric .m-value.blue { color:var(--blue); }
+
+        .monetization { margin-top:0.8rem; padding-top:0.8rem; border-top:1px solid var(--border); }
+        .monetization-title { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--orange); margin-bottom:0.4rem; font-weight:600; }
+        .monetization ul { list-style:none; font-size:0.8rem; color:var(--text2); }
+        .monetization ul li { padding:0.2rem 0; padding-left:1rem; position:relative; }
+        .monetization ul li::before { content:'$'; position:absolute; left:0; color:var(--green); font-weight:700; }
+
+        .seo-keywords { margin-top:0.6rem; }
+        .seo-keywords span { display:inline-block; background:rgba(116,185,255,0.1); color:var(--blue); padding:0.15rem 0.5rem; border-radius:5px; font-size:0.65rem; margin:0.1rem; }
+
+        .tags { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.8rem; }
+        .tag { padding:0.15rem 0.5rem; border-radius:5px; font-size:0.65rem; font-weight:600; }
+        .tag.green { background:rgba(0,206,201,0.12); color:var(--green); }
+        .tag.purple { background:rgba(108,92,231,0.12); color:var(--accent2); }
+        .tag.orange { background:rgba(253,203,110,0.12); color:var(--orange); }
+        .tag.pink { background:rgba(253,121,168,0.12); color:var(--pink); }
+        .tag.blue { background:rgba(116,185,255,0.12); color:var(--blue); }
+        .tag.red { background:rgba(255,107,107,0.12); color:var(--red); }
+        .tag.yellow { background:rgba(255,234,167,0.12); color:var(--yellow); }
+
+        .difficulty { display:flex; gap:3px; margin-top:0.3rem; }
+        .diff-dot { width:18px; height:6px; border-radius:3px; background:var(--border); }
+        .diff-dot.filled { background:var(--green); }
+        .diff-dot.filled.med { background:var(--orange); }
+        .diff-dot.filled.hard { background:var(--red); }
+
+        /* Summary */
+        .summary-section { margin-top:4rem; }
+        .summary-section h2 { font-size:1.4rem; font-weight:800; margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border); }
+
+        .table-wrap { overflow-x:auto; border-radius:12px; border:1px solid var(--border); }
+        table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        thead { background:var(--bg3); }
+        th { padding:0.7rem 0.8rem; text-align:left; font-weight:600; color:var(--accent2); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; }
+        td { padding:0.7rem 0.8rem; border-top:1px solid var(--border); }
+        tr:hover td { background:rgba(108,92,231,0.04); }
+        .hl { background:rgba(253,203,110,0.06); }
+        .hl td { font-weight:600; }
+
+        .note { background:rgba(108,92,231,0.08); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:1rem 1.2rem; margin:1.5rem 0; font-size:0.85rem; color:var(--text2); }
+        .note strong { color:var(--text); }
+
+        .strategy-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:2rem; margin:2rem 0; }
+        .strategy-box h3 { margin-bottom:1rem; }
+        .strategy-timeline { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
+        .strat-phase { padding:1.2rem; border-radius:12px; }
+        .strat-phase.p1 { background:rgba(0,206,201,0.08); border:1px solid rgba(0,206,201,0.2); }
+        .strat-phase.p2 { background:rgba(253,203,110,0.08); border:1px solid rgba(253,203,110,0.2); }
+        .strat-phase.p3 { background:rgba(108,92,231,0.08); border:1px solid rgba(108,92,231,0.2); }
+        .strat-phase h4 { font-size:0.95rem; margin-bottom:0.5rem; }
+        .strat-phase.p1 h4 { color:var(--green); }
+        .strat-phase.p2 h4 { color:var(--orange); }
+        .strat-phase.p3 h4 { color:var(--accent2); }
+        .strat-phase p { font-size:0.83rem; color:var(--text2); line-height:1.6; }
+
+        @media (max-width:768px) { .ideas-grid { grid-template-columns:1fr; } .nav-links { display:none; } .metrics { grid-template-columns:1fr; } }
+        html { scroll-behavior:smooth; }
+        ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-track { background:var(--bg2); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+        .idea-card, .how-step, .calc-item, .strat-phase, .strategy-box { box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+        .idea-card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <div class="nav-logo">AIway — Passz&iacute;v Bev&eacute;tel</div>
+        <ul class="nav-links">
+            <li><a href="#tools">AI Eszk&ouml;z&ouml;k</a></li>
+            <li><a href="#content">Tartalom oldalak</a></li>
+            <li><a href="#directories">Keres&#337;k / Gy&#369;jt&#337;k</a></li>
+            <li><a href="#calculators">Kalkul&aacute;torok</a></li>
+            <li><a href="#apps">Ingyenes appok</a></li>
+            <li><a href="#games">J&aacute;t&eacute;kok / Sz&oacute;rakoz&aacute;s</a></li>
+            <li><a href="#tablazat">&Ouml;sszegz&eacute;s</a></li>
+            <li><a href="osszefoglalo.html">&#8592; F&#337;oldal</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="hero-badge">Passz&iacute;v j&ouml;vedelem &middot; Rekl&aacute;m alap&uacute;</div>
+    <h1>Rekl&aacute;mmal p&eacute;nzt hoz&oacute;<br>weboldalak &amp; appok</h1>
+    <p>Ingyenes B2C oldalak amik l&aacute;togat&oacute;kat vonzanak SEO-val, &eacute;s rekl&aacute;mb&oacute;l / affiliate-b&oacute;l termelnek bev&eacute;telt — aut&oacute;matikusan.</p>
+</header>
+
+<!-- How it works -->
+<div class="container">
+    <div class="how-it-works">
+        <div class="how-step">
+            <div class="step-icon">&#128736;</div>
+            <div class="step-num" style="color:var(--blue)">1</div>
+            <div class="step-text">Meg&eacute;p&iacute;ted<br>(1-4 h&eacute;t)</div>
+        </div>
+        <div class="how-arrow">&#8594;</div>
+        <div class="how-step">
+            <div class="step-icon">&#128270;</div>
+            <div class="step-num" style="color:var(--green)">2</div>
+            <div class="step-text">Google-b&#337;l j&ouml;n a<br>forgalom (SEO)</div>
+        </div>
+        <div class="how-arrow">&#8594;</div>
+        <div class="how-step">
+            <div class="step-icon">&#128184;</div>
+            <div class="step-num" style="color:var(--orange)">3</div>
+            <div class="step-text">Rekl&aacute;m / affiliate<br>p&eacute;nzt termel</div>
+        </div>
+        <div class="how-arrow">&#8594;</div>
+        <div class="how-step">
+            <div class="step-icon">&#128260;</div>
+            <div class="step-num" style="color:var(--pink)">4</div>
+            <div class="step-text">Ism&eacute;tled m&eacute;g<br>t&ouml;bb oldalra</div>
+        </div>
+    </div>
+
+    <div class="rev-calc">
+        <h3>&#128176; Gy&ouml;rs Rekl&aacute;mbev&eacute;tel Kalkul&aacute;tor</h3>
+        <div class="calc-grid">
+            <div class="calc-item">
+                <div class="calc-label">Napi l&aacute;togat&oacute;</div>
+                <div class="calc-value">1.000</div>
+            </div>
+            <div class="calc-item">
+                <div class="calc-label">AdSense RPM (HU)</div>
+                <div class="calc-value">$1-3</div>
+            </div>
+            <div class="calc-item">
+                <div class="calc-label">Havi bev&eacute;tel (1 oldal)</div>
+                <div class="calc-value money">$30-90</div>
+            </div>
+            <div class="calc-item">
+                <div class="calc-label">Napi l&aacute;togat&oacute;</div>
+                <div class="calc-value">10.000</div>
+            </div>
+            <div class="calc-item">
+                <div class="calc-label">AdSense RPM (EN)</div>
+                <div class="calc-value">$5-15</div>
+            </div>
+            <div class="calc-item">
+                <div class="calc-label">Havi bev&eacute;tel (1 oldal)</div>
+                <div class="calc-value money">$1.500-4.500</div>
+            </div>
+        </div>
+        <p style="color:var(--text2); font-size:0.8rem; margin-top:1rem;">RPM = Revenue Per Mille (1000 megjelen&iacute;t&eacute;sre jut&oacute; bev&eacute;tel). Angol nyelv&#369; oldalak 3-5x t&ouml;bbet hoznak!</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 1. AI ONLINE ESZKÖZÖK -->
+    <!-- ============================================ -->
+    <section class="category" id="tools">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(108,92,231,0.15);">&#129302;</div>
+            <h2>1. Ingyenes AI Online Eszk&ouml;z&ouml;k</h2>
+        </div>
+        <div class="cat-desc">Ingyenes online tool-ok amik AI-t haszn&aacute;lnak. Hatalmas SEO potenci&aacute;l, mert az emberek "free [tool] online"-t keresnek.</div>
+
+        <div class="ideas-grid">
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+                <h3>&#128221; AI Sz&ouml;veg&iacute;r&oacute; / &Aacute;t&iacute;r&oacute;</h3>
+                <div class="desc">Ingyenes online tool: sz&ouml;veg &aacute;tfogalmaz&aacute;s, r&ouml;vid&iacute;t&eacute;s, form&aacute;lis/inform&aacute;lis &aacute;talak&iacute;t&aacute;s, helyes&iacute;r&aacute;s-ellen&#337;rz&eacute;s. Rekl&aacute;mmal.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~15-30k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">50-300k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>Google AdSense banner + interstitial</li>
+                        <li>Napi limit (3x ingyen, ut&aacute;na rekl&aacute;m n&eacute;z&eacute;s ut&aacute;n)</li>
+                        <li>PRO verzi&oacute; rekl&aacute;m n&eacute;lk&uuml;l: 1.990 Ft/h&oacute;</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>sz&ouml;veg &aacute;tfogalmaz&aacute;s</span><span>paraphrase online</span><span>rewrite text</span><span>helyes&iacute;r&aacute;s</span>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Gyors MVP</span>
+                    <span class="tag orange">Magas keres&eacute;s</span>
+                    <span class="tag purple">HU + EN</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green),var(--blue))"></div>
+                <h3>&#127912; AI K&eacute;p Gener&aacute;tor / Szerkeszt&#337;</h3>
+                <div class="desc">Ingyenes AI k&eacute;pgener&aacute;l&aacute;s, h&aacute;tt&eacute;r elt&aacute;vol&iacute;t&aacute;s, k&eacute;p feljav&iacute;t&aacute;s (upscale), st&iacute;lustranszfer. Korl&aacute;tozott ingyenes haszn&aacute;lat.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~30-80k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-500k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense + v&iacute;zjel az ingyenes k&eacute;peken</li>
+                        <li>5 k&eacute;p/nap ingyen, ut&aacute;na rekl&aacute;m/upgrade</li>
+                        <li>PRO: 2.990 Ft/h&oacute; (korl&aacute;tlan, nincs v&iacute;zjel)</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>ai image generator free</span><span>remove background</span><span>k&eacute;p h&aacute;tt&eacute;r elt&aacute;vol&iacute;t&aacute;s</span><span>upscale image</span>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Vir&aacute;lis potenci&aacute;l</span>
+                    <span class="tag green">Magas RPM</span>
+                    <span class="tag purple">EN piac!</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--pink),var(--accent))"></div>
+                <h3>&#128196; AI PDF Eszk&ouml;z&ouml;k</h3>
+                <div class="desc">PDF &ouml;sszefoglal&oacute;, PDF &rarr; sz&ouml;veg, PDF kiv&aacute;g&aacute;s, PDF &ouml;sszef&#369;z&eacute;s, PDF compress. Egy domain, t&ouml;bb tool.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~10-20k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-400k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense (nagyon magas RPM a "PDF" kulcssz&oacute;ra)</li>
+                        <li>2 f&aacute;jl/nap ingyen, ut&aacute;na rekl&aacute;m</li>
+                        <li>PRO: 1.490 Ft/h&oacute;</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>pdf merge online free</span><span>compress pdf</span><span>pdf to text</span><span>pdf összefoglal&oacute;</span>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Bev&aacute;lt modell</span>
+                    <span class="tag orange">Magas RPM</span>
+                    <span class="tag blue">iLovePDF kl&oacute;n</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--orange),var(--green))"></div>
+                <h3>&#128172; AI &Ouml;n&eacute;letrajz / Mot&iacute;v&aacute;ci&oacute;s Lev&eacute;l &Iacute;r&oacute;</h3>
+                <div class="desc">Add meg a tapasztalatodat, v&aacute;laszd ki a poz&iacute;ci&oacute;t → AI gener&aacute;l professzion&aacute;lis CV-t &eacute;s motiv&aacute;ci&oacute;s levelet.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~20-40k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">150-600k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense (HR/job n&iacute;ch&eacute;ben magas CPM)</li>
+                        <li>Affiliate: Profession.hu, LinkedIn Premium</li>
+                        <li>PRO sablonok: 2.990 Ft (one-time)</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>&ouml;n&eacute;letrajz minta</span><span>cv k&eacute;sz&iacute;t&#337;</span><span>motiv&aacute;ci&oacute;s lev&eacute;l</span><span>resume builder free</span>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">&Oacute;ri&aacute;si HU keres&eacute;s!</span>
+                    <span class="tag green">Magas RPM</span>
+                    <span class="tag pink">Affiliate</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--blue),var(--accent2))"></div>
+                <h3>&#127468;&#127463; AI Ford&iacute;t&oacute; / Nyelvi Eszk&ouml;z</h3>
+                <div class="desc">Magyar-angol ford&iacute;t&aacute;s AI min&#337;s&eacute;gben, nyelvtani ellen&#337;rz&eacute;s, sz&ouml;veg egyszer&#369;s&iacute;t&eacute;s, tone megv&aacute;ltoztat&aacute;s.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~15-30k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">80-300k Ft/h&oacute;</div></div>
+                </div>
+                <div class="seo-keywords">
+                    <span>magyar angol ford&iacute;t&oacute;</span><span>translate hungarian</span><span>grammar check</span>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Gyors MVP</span>
+                    <span class="tag blue">Magyar n&iacute;ch&eacute;</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green2),var(--accent))"></div>
+                <h3>&#128187; AI K&oacute;d Gener&aacute;tor / Magyarz&oacute;</h3>
+                <div class="desc">K&oacute;dr&eacute;szlet beilleszt&eacute;se → AI megmagyar&aacute;zza, jav&iacute;tja, konvert&aacute;lja m&aacute;s nyelvre, gener&aacute;l tesztet.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~20-40k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-400k Ft/h&oacute;</div></div>
+                </div>
+                <div class="seo-keywords">
+                    <span>explain code online</span><span>code converter</span><span>generate unit test</span>
+                </div>
+                <div class="tags">
+                    <span class="tag purple">Dev c&eacute;lpiac</span>
+                    <span class="tag green">Magas EN RPM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 2. TARTALOM / NICHE OLDALAK -->
+    <!-- ============================================ -->
+    <section class="category" id="content">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(253,203,110,0.15);">&#128240;</div>
+            <h2>2. Tartalom &amp; N&iacute;ch&eacute; Oldalak</h2>
+        </div>
+        <div class="cat-desc">AI-val gener&aacute;lt (de min&#337;s&eacute;gi) tartalom + SEO = organikus forgalom = rekl&aacute;mbev&eacute;tel. Klasszikus passz&iacute;v income modell.</div>
+
+        <div class="ideas-grid">
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--orange),var(--pink))"></div>
+                <h3>&#127891; AI / Tech H&iacute;rport&aacute;l (magyar)</h3>
+                <div class="desc">Napi AI h&iacute;rek, trendek, tutorialok magyarul. AI seg&iacute;t a c&iacute;kkek &iacute;r&aacute;s&aacute;ban, de emberi szerkeszt&eacute;ssel. AIway brand er&#337;s&iacute;t&eacute;s!</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi r&aacute;ford&iacute;t&aacute;s</div><div class="m-value orange">~10-20 &oacute;ra/h&oacute;</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">50-200k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense + szponzor&aacute;lt cikkek (50-150k Ft/cikk)</li>
+                        <li>Affiliate linkek (AI eszk&ouml;z&ouml;kre: Claude, ChatGPT Plus)</li>
+                        <li>Email lista &eacute;p&iacute;t&eacute;s → kurzus &eacute;rt&eacute;kes&iacute;t&eacute;s</li>
+                        <li>Brand er&#337;s&iacute;t&eacute;s → &uuml;gyf&eacute;lszerz&eacute;s!</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag yellow">Brand &eacute;p&iacute;t&eacute;s!</span>
+                    <span class="tag green">Alacsony k&ouml;lts&eacute;g</span>
+                    <span class="tag orange">Szponzor&aacute;ci&oacute;</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green),var(--accent))"></div>
+                <h3>&#128218; "Hogyan kell...?" Tud&aacute;sb&aacute;zis</h3>
+                <div class="desc">SEO-optimaliz&aacute;lt v&aacute;laszok mindenre: "hogyan kell c&eacute;get alap&iacute;tani", "hogyan kell ad&oacute;bevall&aacute;st csin&aacute;lni", stb. AI &iacute;rja, ember ellen&#337;rzi.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Tartalom</div><div class="m-value orange">100+ cikk AI-val</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">80-400k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense (inform&aacute;ci&oacute;s oldalaknak j&oacute; RPM)</li>
+                        <li>Affiliate: k&ouml;nyvel&#337; szoftver, banksz&aacute;mla, hosting</li>
+                        <li>Hossz&uacute; t&aacute;von: sok kis cikk = sok organikus forgalom</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>hogyan kell c&eacute;get alap&iacute;tani</span><span>szja bevall&aacute;s</span><span>v&aacute;llalkoz&aacute;s ind&iacute;t&aacute;s</span>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Sk&aacute;l&aacute;zhat&oacute;</span>
+                    <span class="tag blue">SEO gold</span>
+                    <span class="tag pink">Affiliate</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--blue),var(--green))"></div>
+                <h3>&#128187; Programoz&aacute;s Oktat&oacute; Port&aacute;l</h3>
+                <div class="desc">Ingyenes programoz&aacute;s tananyag magyarul: Python, JavaScript, React, AI/ML. Interakt&iacute;v p&eacute;ld&aacute;k, kv&iacute;zek.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">3-4 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Tartalom</div><div class="m-value orange">50+ leckek</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-500k Ft/h&oacute;</div></div>
+                </div>
+                <div class="seo-keywords">
+                    <span>python tanul&aacute;s magyarul</span><span>javascript kezd&#337;knek</span><span>programoz&aacute;s alapok</span>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Magyar n&iacute;ch&eacute;</span>
+                    <span class="tag orange">Magas RPM</span>
+                    <span class="tag yellow">Brand &eacute;p&iacute;t&eacute;s</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 3. KERESŐK / GYŰJTŐK / DIRECTORY -->
+    <!-- ============================================ -->
+    <section class="category" id="directories">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(0,206,201,0.15);">&#128270;</div>
+            <h2>3. Keres&#337;k, Gy&#369;jt&#337;k &amp; &Ouml;sszehasonl&iacute;t&oacute;k</h2>
+        </div>
+        <div class="cat-desc">Aggreg&aacute;tor oldalak amik &ouml;sszegy&#369;jtik &eacute;s rendszerezik az inform&aacute;ci&oacute;t. SEO sz&ouml;rnyek — rengeteg long-tail kulcssz&oacute;.</div>
+
+        <div class="ideas-grid">
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green),var(--orange))"></div>
+                <h3>&#129302; AI Eszk&ouml;z Gy&#369;jtem&eacute;ny (magyar)</h3>
+                <div class="desc">Rendszerezett gy&#369;jtem&eacute;ny az &ouml;sszes AI eszk&ouml;zr&#337;l, magyar le&iacute;r&aacute;ssal, kateg&oacute;ri&aacute;kkal, &eacute;rt&eacute;kel&eacute;sekkel. "There's an AI for That" magyarul.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Tartalom</div><div class="m-value orange">200+ AI tool</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-500k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>Kiemelt list&aacute;z&aacute;s (AI c&eacute;gek fizetnek!): 20-100k Ft/h&oacute;</li>
+                        <li>Affiliate linkek (pl. ChatGPT Plus, Midjourney)</li>
+                        <li>AdSense</li>
+                        <li>Szponzor&aacute;lt review cikkek</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Kiemelt list&aacute;z&aacute;s $$</span>
+                    <span class="tag green">N&ouml;vekv&#337; piac</span>
+                    <span class="tag yellow">Brand!</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--blue),var(--accent2))"></div>
+                <h3>&#128187; Magyar SaaS / Szoftver &Ouml;sszehasonl&iacute;t&oacute;</h3>
+                <div class="desc">"Melyik sz&aacute;ml&aacute;z&oacute;t v&aacute;lasszam?" "Melyik webshop motor a legjobb?" — magyar c&eacute;geknek sz&oacute;l&oacute; &ouml;sszehasonl&iacute;t&oacute;.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Tartalom</div><div class="m-value orange">50+ &ouml;sszehasonl&iacute;t&aacute;s</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">150-800k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>Affiliate (sz&aacute;ml&aacute;z&oacute;k, hosting, CRM-ek fizet magas jutal&eacute;kot)</li>
+                        <li>Kiemelt poz&iacute;ci&oacute;: szoftverc&eacute;gek fizetnek</li>
+                        <li>AdSense (B2B kulcssz&oacute; = magas CPM)</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>legjobb sz&aacute;ml&aacute;z&oacute; program</span><span>billingo vs szamlazz.hu</span><span>webshop motor &ouml;sszehasonl&iacute;t&aacute;s</span>
+                </div>
+                <div class="tags">
+                    <span class="tag pink">Affiliate arany!</span>
+                    <span class="tag green">Magas RPM</span>
+                    <span class="tag blue">B2B kulcssz&oacute;</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--pink),var(--orange))"></div>
+                <h3>&#127968; Szolg&aacute;ltat&oacute; Keres&#337; (helyi)</h3>
+                <div class="desc">Keres&#337;: "villanyszerel&#337; Budapest", "k&ouml;nyvel&#337; Debrecen". C&eacute;gek regisztr&aacute;lnak, &uuml;gyfelek tal&aacute;lnak r&aacute;juk. Aj&aacute;nlatkér&#337; rendszer.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">3-5 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Tartalom</div><div class="m-value orange">Automatikusan n&#337;</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">200k-1M Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>Kiemelt profil: 5-20k Ft/h&oacute; szolg&aacute;ltat&oacute;nk&eacute;nt</li>
+                        <li>Lead gen: fizet&eacute;s aj&aacute;nlatkér&eacute;senk&eacute;nt (500-2000 Ft/lead)</li>
+                        <li>AdSense</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>villanyszerel&#337; budapest</span><span>k&ouml;nyvel&#337; keres&eacute;s</span><span>&uuml;gyv&eacute;d aj&aacute;nl&aacute;s</span>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Lead gen $$</span>
+                    <span class="tag green">Helyi SEO</span>
+                    <span class="tag purple">Marketplace</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 4. KALKULÁTOROK / MINI TOOL-OK -->
+    <!-- ============================================ -->
+    <section class="category" id="calculators">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(253,121,168,0.15);">&#128290;</div>
+            <h2>4. Kalkul&aacute;torok &amp; Mini Tool-ok</h2>
+        </div>
+        <div class="cat-desc">Egyszer&#369;, gyorsan elk&eacute;sz&iacute;thet&#337; online eszk&ouml;z&ouml;k amikre az emberek rendszeresen visszaj&aacute;rnak. 1-3 nap fejleszt&eacute;s / tool.</div>
+
+        <div class="ideas-grid">
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green),var(--green2))"></div>
+                <h3>&#128176; P&eacute;nz&uuml;gyi Kalkul&aacute;torok Port&aacute;l</h3>
+                <div class="desc">Fizet&eacute;s kalkul&aacute;tor (brutt&oacute;-nett&oacute;), hitel kalkul&aacute;tor, ad&oacute; kalkul&aacute;tor, megtakar&iacute;t&aacute;s kalkul&aacute;tor, SZJA kalkul&aacute;tor. Egy oldal, sok tool.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value green">~5k Ft (hosting)</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-500k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense (p&eacute;nz&uuml;gyi kulcssz&oacute; = LEGJOBB RPM)</li>
+                        <li>Affiliate: bank, hitel, befektet&eacute;si alkalmaz&aacute;s</li>
+                        <li>Szponzor&aacute;lt p&eacute;nz&uuml;gyi term&eacute;kek</li>
+                    </ul>
+                </div>
+                <div class="seo-keywords">
+                    <span>brutt&oacute; nett&oacute; kalkul&aacute;tor</span><span>hitel kalkul&aacute;tor</span><span>szja kalkul&aacute;tor 2026</span><span>fizet&eacute;s kalkul&aacute;tor</span>
+                </div>
+                <div class="tags">
+                    <span class="tag green">LEGJOBB RPM!</span>
+                    <span class="tag orange">&Oacute;ri&aacute;si keres&eacute;s</span>
+                    <span class="tag pink">Affiliate arany</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--accent),var(--blue))"></div>
+                <h3>&#128736; Fejleszt&#337;i Eszk&ouml;zt&aacute;r</h3>
+                <div class="desc">JSON formatter, Base64 encode/decode, regex tesztel&#337;, color picker, Lorem ipsum, UUID gen, timestamp converter. Egy domain, 30+ mini tool.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value green">~5k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-400k Ft/h&oacute;</div></div>
+                </div>
+                <div class="seo-keywords">
+                    <span>json formatter online</span><span>base64 decode</span><span>regex tester</span><span>uuid generator</span>
+                </div>
+                <div class="tags">
+                    <span class="tag purple">Dev c&eacute;lpiac</span>
+                    <span class="tag green">Magas EN RPM</span>
+                    <span class="tag blue">30+ tool = 30+ SEO oldal</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--orange),var(--accent2))"></div>
+                <h3>&#128200; V&aacute;llalkoz&oacute;i Kalkul&aacute;torok</h3>
+                <div class="desc">KATA kalkul&aacute;tor, &aacute;tal&aacute;nyad&oacute; kalkul&aacute;tor, Kft vs EV &ouml;sszehasonl&iacute;t&aacute;s, &oacute;rad&iacute;j kalkul&aacute;tor, &aacute;raz&aacute;s seg&iacute;t&#337;.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value green">~5k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">80-300k Ft/h&oacute;</div></div>
+                </div>
+                <div class="seo-keywords">
+                    <span>kata kalkul&aacute;tor 2026</span><span>kft vs ev</span><span>&oacute;rad&iacute;j kalkul&aacute;tor</span>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">B2B RPM</span>
+                    <span class="tag green">Magyar n&iacute;ch&eacute;</span>
+                    <span class="tag pink">K&ouml;nyvel&#337; affiliate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 5. INGYENES APPOK -->
+    <!-- ============================================ -->
+    <section class="category" id="apps">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(116,185,255,0.15);">&#128241;</div>
+            <h2>5. Ingyenes Mobil Appok (AdMob)</h2>
+        </div>
+        <div class="cat-desc">Ingyenes app a Google Play-en / App Store-ban, AdMob rekl&aacute;mmal. Leon&aacute;rd m&aacute;r csin&aacute;lta a PokerTimer-rel!</div>
+
+        <div class="ideas-grid">
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--blue),var(--green))"></div>
+                <h3>&#129302; AI Asszisztens App</h3>
+                <div class="desc">Ingyenes ChatGPT-szer&#369; app magyarul. Korl&aacute;tozott haszn&aacute;lat ingyen (rekl&aacute;mmal), PRO korl&aacute;tlan. Hasonl&oacute; az "AI Chat" appokhoz amik milliós let&ouml;lt&eacute;ssel mennek.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">3-4 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">API: ~30-100k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">200k-1M+ Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdMob interstitial (minden 5. k&eacute;rd&eacute;s ut&aacute;n)</li>
+                        <li>AdMob banner</li>
+                        <li>PRO el&#337;fizet&eacute;s: 1.990 Ft/h&oacute; (rekl&aacute;m n&eacute;lk&uuml;l + korl&aacute;tlan)</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Magas let&ouml;lt&eacute;s</span>
+                    <span class="tag green">AdMob + IAP</span>
+                    <span class="tag purple">PokerTimer tapasztalat!</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--pink),var(--accent2))"></div>
+                <h3>&#127468;&#127463; Magyar Sz&oacute;kincsfejleszt&#337; / Nyelvi App</h3>
+                <div class="desc">Napi 5 &uacute;j angol sz&oacute;, kv&iacute;zekkel, p&eacute;ldamondatokkal. Gamifik&aacute;lt (streak, pont, szint). Duolingo-light magyarul.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">3-5 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value green">~5-10k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-400k Ft/h&oacute;</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Napi visszaj&aacute;r&oacute;</span>
+                    <span class="tag orange">AdMob</span>
+                    <span class="tag blue">Magyar piac</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green2),var(--orange))"></div>
+                <h3>&#128200; Szok&aacute;sk&ouml;vet&#337; / Produktivit&aacute;s App</h3>
+                <div class="desc">Napi szok&aacute;sok k&ouml;vet&eacute;se, streak, statisztik&aacute;k, eml&eacute;keztet&#337;k. Egyszer&#369; de addikt&iacute;v. AI javaslatok a javul&aacute;sra.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-4 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value green">~5k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-500k Ft/h&oacute;</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Magas retenci&oacute;</span>
+                    <span class="tag orange">AdMob + PRO</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 6. JÁTÉKOK / SZÓRAKOZÁS -->
+    <!-- ============================================ -->
+    <section class="category" id="games">
+        <div class="cat-header">
+            <div class="cat-icon" style="background:rgba(255,234,167,0.15);">&#127918;</div>
+            <h2>6. J&aacute;t&eacute;kok &amp; Sz&oacute;rakoz&aacute;s</h2>
+        </div>
+        <div class="cat-desc">Egyszer&#369; web j&aacute;t&eacute;kok amik vir&aacute;lisak lehetnek. Alacsony fejleszt&eacute;si k&ouml;lts&eacute;g, magas rekl&aacute;m potenci&aacute;l.</div>
+
+        <div class="ideas-grid">
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--yellow),var(--orange))"></div>
+                <h3>&#127922; AI Kv&iacute;z Gener&aacute;tor</h3>
+                <div class="desc">V&aacute;lassz t&eacute;m&aacute;t → AI gener&aacute;l kv&iacute;zt. T&ouml;rt&eacute;nelem, tudom&aacute;ny, popkult&uacute;ra, sport. Megoszhat&oacute; eredm&eacute;nyek (vir&aacute;lis!).</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~10-20k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">50-300k Ft/h&oacute;</div></div>
+                </div>
+                <div class="monetization">
+                    <div class="monetization-title">Monet&iacute;z&aacute;ci&oacute;</div>
+                    <ul>
+                        <li>AdSense kv&iacute;zek k&ouml;z&ouml;tt (interstitial)</li>
+                        <li>Social media megoszt&aacute;s = ingyenes forgalom</li>
+                        <li>Napi limit, rekl&aacute;m n&eacute;z&eacute;s ut&aacute;n t&ouml;bb kv&iacute;z</li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Vir&aacute;lis!</span>
+                    <span class="tag green">Gyors MVP</span>
+                    <span class="tag pink">Social megoszt&aacute;s</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--accent),var(--green))"></div>
+                <h3>&#128100; AI Karakter Chat</h3>
+                <div class="desc">Besz&eacute;lgess AI karakterekkel: t&ouml;rt&eacute;nelmi szem&eacute;lyek, fikci&oacute;s karakterek, roleplay. Character.AI szer&#369; de egyszer&#369;bb.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">2-3 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value orange">~30-80k Ft (API)</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">100-500k Ft/h&oacute;</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag orange">Magas engagement</span>
+                    <span class="tag green">Addikt&iacute;v</span>
+                    <span class="tag purple">AI core</span>
+                </div>
+            </div>
+
+            <div class="idea-card">
+                <div class="top-bar" style="background:linear-gradient(90deg,var(--green),var(--blue))"></div>
+                <h3>&#128373; Napi Rej&eacute;ly / Wordle-kl&oacute;n</h3>
+                <div class="desc">Napi 1 feladv&aacute;ny (sz&oacute;j&aacute;t&eacute;k, logikai, AI-gener&aacute;lt). Streak rendszer, ranglist&aacute;k. Wordle-szer&#369; addikci&oacute;s faktor.</div>
+                <div class="metrics">
+                    <div class="metric"><div class="m-label">Fejleszt&eacute;s</div><div class="m-value blue">1-2 h&eacute;t</div></div>
+                    <div class="metric"><div class="m-label">Havi k&ouml;lts&eacute;g</div><div class="m-value green">~5k Ft</div></div>
+                    <div class="metric"><div class="m-label">Bev&eacute;tel pot.</div><div class="m-value green">50-200k Ft/h&oacute;</div></div>
+                </div>
+                <div class="tags">
+                    <span class="tag green">Napi visszaj&aacute;r&oacute;</span>
+                    <span class="tag orange">Vir&aacute;lis</span>
+                    <span class="tag blue">Alacsony k&ouml;lts&eacute;g</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ÖSSZESÍTŐ TÁBLÁZAT -->
+    <!-- ============================================ -->
+    <section class="summary-section" id="tablazat">
+        <h2>&#128202; &Ouml;sszes &Ouml;tlet — Rangsorolva</h2>
+
+        <div class="note">
+            <strong>Strat&eacute;gia:</strong> Az angol nyelv&#369; oldalak 3-5x t&ouml;bb rekl&aacute;mbev&eacute;telt hoznak, de a magyar n&iacute;ch&eacute;kben kevesebb a verseny.
+            Az ide&aacute;lis: magyar piacra ind&iacute;t&aacute;s (gyors top 3 Google poz&iacute;ci&oacute;) → angol verzi&oacute; ha bev&aacute;lik.
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>&Ouml;tlet</th>
+                        <th>Fejleszt&eacute;s</th>
+                        <th>Havi k&ouml;lts&eacute;g</th>
+                        <th>Bev&eacute;tel/h&oacute;</th>
+                        <th>Monet&iacute;z&aacute;ci&oacute;</th>
+                        <th>Nyelv</th>
+                        <th>Aj&aacute;nlom?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="hl"><td><strong>P&eacute;nz&uuml;gyi kalkul&aacute;torok</strong></td><td>1-2 h&eacute;t</td><td style="color:var(--green)">~5k Ft</td><td style="color:var(--green)">100-500k</td><td>AdSense + affiliate</td><td>HU</td><td style="color:var(--green);font-weight:700">TOP 1</td></tr>
+                    <tr class="hl"><td><strong>AI &Ouml;n&eacute;letrajz &iacute;r&oacute;</strong></td><td>2-3 h&eacute;t</td><td>~20-40k</td><td style="color:var(--green)">150-600k</td><td>AdSense + affiliate + PRO</td><td>HU+EN</td><td style="color:var(--green);font-weight:700">TOP 2</td></tr>
+                    <tr class="hl"><td><strong>SaaS &ouml;sszehasonl&iacute;t&oacute;</strong></td><td>2-3 h&eacute;t</td><td style="color:var(--green)">~5k Ft</td><td style="color:var(--green)">150-800k</td><td>Affiliate + kiemelt</td><td>HU</td><td style="color:var(--green);font-weight:700">TOP 3</td></tr>
+                    <tr class="hl"><td><strong>AI Sz&ouml;veg&iacute;r&oacute;</strong></td><td>1-2 h&eacute;t</td><td>~15-30k</td><td style="color:var(--green)">50-300k</td><td>AdSense + PRO</td><td>HU+EN</td><td style="color:var(--green);font-weight:700">TOP 4</td></tr>
+                    <tr><td>AI PDF eszk&ouml;z&ouml;k</td><td>2-3 h&eacute;t</td><td>~10-20k</td><td>100-400k</td><td>AdSense + PRO</td><td>EN</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>Fejleszt&#337;i eszk&ouml;zt&aacute;r</td><td>2-3 h&eacute;t</td><td style="color:var(--green)">~5k</td><td>100-400k</td><td>AdSense</td><td>EN</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>AI Asszisztens App</td><td>3-4 h&eacute;t</td><td>~30-100k</td><td>200k-1M</td><td>AdMob + PRO sub</td><td>HU</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>AI Eszk&ouml;z gy&#369;jtem&eacute;ny</td><td>2-3 h&eacute;t</td><td style="color:var(--green)">~5k</td><td>100-500k</td><td>Kiemelt + affiliate</td><td>HU</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>AI K&eacute;p gener&aacute;tor</td><td>2-3 h&eacute;t</td><td>~30-80k</td><td>100-500k</td><td>AdSense + PRO</td><td>EN</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>AI h&iacute;rport&aacute;l</td><td>1-2 h&eacute;t</td><td>~10-20&oacute;ra/h&oacute;</td><td>50-200k</td><td>AdSense + szponzor</td><td>HU</td><td style="color:var(--yellow)">Brand-nek!</td></tr>
+                    <tr><td>"Hogyan kell?" tud&aacute;sb&aacute;zis</td><td>1 h&eacute;t</td><td>AI tartalom</td><td>80-400k</td><td>AdSense + affiliate</td><td>HU</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>Szolg&aacute;ltat&oacute; keres&#337;</td><td>3-5 h&eacute;t</td><td>~10k</td><td>200k-1M</td><td>Lead gen + kiemelt</td><td>HU</td><td style="color:var(--orange)">J&oacute;, de lassabb</td></tr>
+                    <tr><td>V&aacute;llalkoz&oacute;i kalkul&aacute;torok</td><td>1-2 h&eacute;t</td><td style="color:var(--green)">~5k</td><td>80-300k</td><td>AdSense + affiliate</td><td>HU</td><td style="color:var(--orange)">J&oacute;</td></tr>
+                    <tr><td>AI Kv&iacute;z gener&aacute;tor</td><td>1-2 h&eacute;t</td><td>~10-20k</td><td>50-300k</td><td>AdSense</td><td>HU+EN</td><td style="color:var(--orange)">Vir&aacute;lis</td></tr>
+                    <tr><td>Programoz&aacute;s oktat&oacute;</td><td>3-4 h&eacute;t</td><td style="color:var(--green)">~5k</td><td>100-500k</td><td>AdSense + kurzus</td><td>HU</td><td style="color:var(--yellow)">Brand-nek!</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- STRATÉGIA -->
+    <!-- ============================================ -->
+    <section class="summary-section">
+        <h2>&#127919; Aj&aacute;nlott Strat&eacute;gia — Passz&iacute;v Bev&eacute;tel &Eacute;p&iacute;t&eacute;s</h2>
+
+        <div class="strategy-box">
+            <div class="strategy-timeline">
+                <div class="strat-phase p1">
+                    <h4>H&oacute;nap 1-2: Gyors oldalak</h4>
+                    <p>
+                        <strong>1.</strong> P&eacute;nz&uuml;gyi kalkul&aacute;torok port&aacute;l (legjobb RPM)<br>
+                        <strong>2.</strong> AI sz&ouml;veg&iacute;r&oacute; / &aacute;tfogalmaz&oacute;<br>
+                        <strong>3.</strong> V&aacute;llalkoz&oacute;i kalkul&aacute;torok<br><br>
+                        Ezek 1-2 h&eacute;t fejleszt&eacute;s, ut&aacute;na SEO-ra v&aacute;rnak (2-4 h&oacute;nap).<br><br>
+                        <strong style="color:var(--green)">K&ouml;lts&eacute;g: ~50k Ft | C&eacute;l: 3 &eacute;l&#337; oldal</strong>
+                    </p>
+                </div>
+                <div class="strat-phase p2">
+                    <h4>H&oacute;nap 3-4: Tartalommal b&#337;v&iacute;t&eacute;s</h4>
+                    <p>
+                        <strong>4.</strong> AI &ouml;n&eacute;letrajz &iacute;r&oacute; (magas &eacute;rt&eacute;k&#369; n&iacute;ch&eacute;)<br>
+                        <strong>5.</strong> SaaS &ouml;sszehasonl&iacute;t&oacute; (affiliate arany)<br>
+                        <strong>6.</strong> AI eszk&ouml;z gy&#369;jtem&eacute;ny (brand &eacute;p&iacute;t&eacute;s)<br><br>
+                        Els&#337; oldalak elkezdenek forgalmat hozni.<br><br>
+                        <strong style="color:var(--orange)">C&eacute;l: 200-500k Ft/h&oacute; passz&iacute;v</strong>
+                    </p>
+                </div>
+                <div class="strat-phase p3">
+                    <h4>H&oacute;nap 5+: Sk&aacute;l&aacute;z&aacute;s</h4>
+                    <p>
+                        <strong>7.</strong> Angol verzi&oacute;k (3-5x t&ouml;bb bev&eacute;tel)<br>
+                        <strong>8.</strong> Mobil appok (AdMob)<br>
+                        <strong>9.</strong> Ami m&#369;k&ouml;dik, azt duplik&aacute;ljuk<br>
+                        <strong>10.</strong> Ami nem hoz forgalmat, elengedjuk<br><br>
+                        <strong style="color:var(--accent2)">C&eacute;l: 500k-2M Ft/h&oacute; passz&iacute;v bev&eacute;tel<br>8-12 &eacute;l&#337; oldalb&oacute;l / appb&oacute;l</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note" style="margin-top:1.5rem">
+            <strong>Fontos:</strong> A rekl&aacute;m alap&uacute; bev&eacute;tel NEM azonnali. A SEO 2-6 h&oacute;napot vesz ig&eacute;nybe. Ez&eacute;rt &eacute;rdemes p&aacute;rhuzamosan futtatni az &uuml;gyf&eacute;l projektek mellette — azok hozz&aacute;k a gyors p&eacute;nzt, ez&eacute;k az egyre n&ouml;vekv&#337; passz&iacute;v bev&eacute;telt.
+        </div>
+    </section>
+
+</div>
+
+<footer style="text-align:center; padding:3rem 2rem; border-top:1px solid var(--border); color:var(--text2); font-size:0.8rem;">
+    AIway — Passz&iacute;v Bev&eacute;teli Strat&eacute;gia &middot; 2026 &middot;
+    <a href="szolgaltatasok.html" style="color:var(--accent2)">Szolg&aacute;ltat&aacute;sok</a> &middot;
+    <a href="osszefoglalo.html" style="color:var(--accent2)">F&#337; &ouml;sszefoglal&oacute;</a>
+</footer>
+
+</body>
+</html>
