@@ -167,7 +167,7 @@
     <div class="nav-logo">Tudatos<em>AI</em></div>
     <div class="nav-controls">
         <button class="nav-btn" onclick="prevSlide()">&larr;</button>
-        <span class="slide-indicator" id="slideIndicator">1 / 11</span>
+        <span class="slide-indicator" id="slideIndicator">1 / 14</span>
         <button class="nav-btn" onclick="nextSlide()">&rarr;</button>
     </div>
 </div>
@@ -182,7 +182,7 @@
         <div class="subtitle">Strat&eacute;gia &eacute;s J&ouml;v&#337;k&eacute;p &mdash; Tervez&#337; Meeting</div>
         <div class="date-line">2026. m&aacute;rcius 24.</div>
         <div class="hero-arrow" onclick="goToSlide(1)">&rarr; Tov&aacute;bb</div>
-        <div class="slide-number">1 / 11</div>
+        <div class="slide-number">1 / 14</div>
     </div>
 
     <!-- 2: TARTALOMJEGYZEK -->
@@ -226,7 +226,7 @@
                 <div class="toc-label">D&ouml;nt&eacute;si fa<br>&amp; Opci&oacute;k</div>
             </a>
         </div>
-        <div class="slide-number">2 / 11</div>
+        <div class="slide-number">2 / 14</div>
     </div>
 
     <!-- 3: VEZETOI OSSZEFOGLALO -->
@@ -260,7 +260,7 @@
                 <div class="sublabel">ERP + SaaS + App + Tan&aacute;csad&aacute;s</div>
             </div>
         </div>
-        <div class="slide-number">3 / 11</div>
+        <div class="slide-number">3 / 14</div>
     </div>
 
     <!-- 4: AI ELONYUNK -->
@@ -304,7 +304,7 @@
             <div class="metric gold"><div class="number">500</div><div class="label">Ticket</div></div>
             <div class="metric blue"><div class="number">4 f&#337;</div><div class="label">Kiv&aacute;ltva</div></div>
         </div>
-        <div class="slide-number">4 / 11</div>
+        <div class="slide-number">4 / 14</div>
     </div>
 
     <!-- 5: TCS STATUSZ -->
@@ -345,37 +345,359 @@
         <div class="note" style="margin-top:1rem;font-size:1.2rem;">
             Kicsivel t&ouml;bb mint <strong>egy &eacute;ve indultunk</strong>. A nagy v&aacute;ltoz&aacute;sok most k&ouml;vetkeznek &mdash; most der&uuml;l ki, mire vagyunk k&eacute;pesek <strong>n&eacute;gyen egy&uuml;tt</strong>.
         </div>
-        <div class="slide-number">5 / 11</div>
+        <div class="slide-number">5 / 14</div>
     </div>
 
-    <!-- 5: SAJAT TERMEKEK RESZLETES -->
-    <div class="slide slide-content" id="slide-5b" style="padding:4.5rem 3.5rem 2rem;">
+    <!-- 5: CEGVERZUM -->
+    <div class="slide slide-content" id="slide-5a" style="padding:4.5rem 4.5rem 2rem;">
         <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
-            <div class="section-num gold">4</div>
-            <h2>Saj&aacute;t term&eacute;keink &mdash; R&eacute;szletes elemz&eacute;s</h2>
+            <div class="section-num" style="background:linear-gradient(135deg,var(--teal),#2a8a8a);">1/6</div>
+            <h2>C&eacute;gverzum</h2>
+            <div style="margin-left:auto;background:var(--teal);color:#fff;padding:0.3rem 1rem;border-radius:10px;font-weight:700;font-size:0.9rem;">MVP 90%</div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;">
-            <!-- Cégverzum -->
-            <div style="background:linear-gradient(135deg,#fff 60%,var(--teal-light));border:2px solid var(--teal);border-radius:16px;padding:1rem 1.2rem;position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--teal);"></div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-                    <div style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--teal);">C&eacute;gverzum</div>
-                    <div style="background:var(--teal);color:#fff;padding:0.15rem 0.6rem;border-radius:8px;font-size:0.75rem;font-weight:700;">K&Eacute;SZ 90%</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+                    <div style="background:var(--teal-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--teal-dark);font-weight:700;letter-spacing:1px;">&#201;ves k&#246;lts&#233;g</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);">2.500.000 Ft</div>
+                    </div>
+                    <div style="background:var(--gold-pale);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--gold);font-weight:700;letter-spacing:1px;">&#193;rbev&#233;tel pot.</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">2&ndash;5M Ft/&#233;v</div>
+                    </div>
+                    <div style="background:var(--blue-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:1px;">Potenci&#225;l</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">5/5</div>
+                    </div>
+                    <div style="background:var(--bg-alt);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:700;letter-spacing:1px;">Fejl. id&#337;</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">K&#233;sz</div>
+                    </div>
                 </div>
-                <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.5;">
-                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.2rem 0;"><span style="color:var(--text-muted);">&Aacute;rbev&eacute;tel pot.</span><strong style="color:var(--teal);">2-5M Ft/&eacute;v</strong></div>
-                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.2rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>SaaS + API as a Service</strong></div>
-                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.2rem 0;"><span style="color:var(--text-muted);">Potenci&aacute;l</span><strong style="color:var(--gold);">5/5</strong></div>
-                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.2rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong style="color:var(--teal);">Leon&aacute;rd</strong></div>
-                    <div style="display:flex;justify-content:space-between;padding:0.2rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong style="color:var(--teal);">Alacsony (Opten dr&aacute;ga)</strong></div>
+                <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong style="color:var(--teal);">Leon&#225;rd</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>SaaS + API as a Service</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong style="color:var(--teal);">Alacsony (Opten dr&#225;ga)</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.25rem 0;"><span style="color:var(--text-muted);">Szerver</span><strong>Hetzner VPS &mdash; 46.225.111.41</strong></div>
                 </div>
             </div>
-            <!-- Legitas -->
-            <div style="background:linear-gradient(135deg,#fff 60%,var(--teal-light));border:2px solid var(--teal);border-radius:16px;padding:1rem 1.2rem;position:relative;overflow:hidden;">
-                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--teal);"></div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-                    <div style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--teal);">Legitas</div>
-                    <div style="background:var(--teal);color:#fff;padding:0.15rem 0.6rem;border-radius:8px;font-size:0.75rem;font-weight:700;">K&Eacute;SZ 85%</div>
+            <div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));border:2px solid var(--teal);border-radius:14px;padding:1rem;margin-bottom:0.8rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--teal);margin-bottom:0.5rem;">&#201;rt&#233;kes&#237;t&#233;shez sz&#252;ks&#233;ges</div>
+                    <ul style="list-style:none;font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <li>&#9679; Google Ads: &bdquo;c&#233;ginform&#225;ci&#243;&rdquo;, &bdquo;c&#233;gkeres&#337;&rdquo; kamp&#225;ny</li>
+                        <li>&#9679; B2B telefon: TDI-s c&#233;gek megkeres&#233;se</li>
+                        <li>&#9679; Freemium regisztr&#225;ci&#243; &rarr; upsell PRO</li>
+                        <li>&#9679; API &#233;rt&#233;kes&#237;t&#233;s partner c&#233;geknek</li>
+                    </ul>
+                </div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));border:2px solid var(--gold);border-radius:14px;padding:1rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem;">K&#246;lts&#233;g bont&#225;s (&#233;ves)</div>
+                    <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <div style="display:flex;justify-content:space-between;"><span>Szerver (Hetzner VPS)</span><strong>~360.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Domain + SSL</span><strong>~15.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>NAV/C&#233;gb&#237;r&#243;s&#225;g API</span><strong>~500.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>AI (Anthropic API)</span><strong>~200.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Google Ads</span><strong>~1.200.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--gold);margin-top:0.3rem;padding-top:0.3rem;"><strong>&#214;sszesen</strong><strong style="color:var(--red);">~2.275.000 Ft</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">5 / 14</div>
+    </div>
+
+    <!-- 6: LEGITAS -->
+    <div class="slide slide-content" id="slide-5b" style="padding:4.5rem 4.5rem 2rem;">
+        <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
+            <div class="section-num" style="background:linear-gradient(135deg,var(--teal),#2a8a8a);">2/6</div>
+            <h2>Legitas (Szerz&#337;d&#233;sverzum)</h2>
+            <div style="margin-left:auto;background:var(--teal);color:#fff;padding:0.3rem 1rem;border-radius:10px;font-weight:700;font-size:0.9rem;">MVP 80%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+                    <div style="background:var(--teal-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--teal-dark);font-weight:700;letter-spacing:1px;">&#201;ves k&#246;lts&#233;g</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);">100.000 Ft</div>
+                    </div>
+                    <div style="background:var(--gold-pale);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--gold);font-weight:700;letter-spacing:1px;">&#193;rbev&#233;tel pot.</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">3&ndash;8M Ft/&#233;v</div>
+                    </div>
+                    <div style="background:var(--blue-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:1px;">Potenci&#225;l</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">5/5</div>
+                    </div>
+                    <div style="background:var(--bg-alt);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:700;letter-spacing:1px;">Fejl. id&#337;</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">K&#233;sz</div>
+                    </div>
+                </div>
+                <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong style="color:var(--teal);">Leon&#225;rd</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>Freemium &#8594; 14.900 Ft/h&#243;</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong style="color:var(--teal);">Alacsony (nincs magyar)</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.25rem 0;"><span style="color:var(--text-muted);">Szerver</span><strong>Legitas &#8212; 178.104.36.213</strong></div>
+                </div>
+            </div>
+            <div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));border:2px solid var(--teal);border-radius:14px;padding:1rem;margin-bottom:0.8rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--teal);margin-bottom:0.5rem;">&#201;rt&#233;kes&#237;t&#233;shez sz&#252;ks&#233;ges</div>
+                    <ul style="list-style:none;font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <li>&#9679; Google Ads: &#8222;szerz&#337;d&#233;skezel&#337;&#8221;, &#8222;e-al&#225;&#237;r&#225;s&#8221;</li>
+                        <li>&#9679; B2B telefon: &#252;gyv&#233;di irod&#225;k, ingatlanosok</li>
+                        <li>&#9679; Content marketing: blog cikkek (SEO)</li>
+                        <li>&#9679; Freemium regisztr&#225;ci&#243; &#8594; upsell PRO</li>
+                    </ul>
+                </div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));border:2px solid var(--gold);border-radius:14px;padding:1rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem;">K&#246;lts&#233;g bont&#225;s (&#233;ves)</div>
+                    <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <div style="display:flex;justify-content:space-between;"><span>Szerver (Hetzner VPS)</span><strong>~60.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Domain + SSL</span><strong>~15.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>AI (Anthropic API)</span><strong>~25.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--gold);margin-top:0.3rem;padding-top:0.3rem;"><strong>&#214;sszesen</strong><strong style="color:var(--red);">~100.000 Ft</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">6 / 14</div>
+    </div>
+
+    <!-- 7: SZAMLAVERZUM -->
+    <div class="slide slide-content" id="slide-5c" style="padding:4.5rem 4.5rem 2rem;">
+        <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
+            <div class="section-num" style="background:linear-gradient(135deg,var(--gold),#E8B830);">3/6</div>
+            <h2>Sz&#225;mlaverzum</h2>
+            <div style="margin-left:auto;background:var(--gold);color:#fff;padding:0.3rem 1rem;border-radius:10px;font-weight:700;font-size:0.9rem;">TERV 20%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+                    <div style="background:var(--teal-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--teal-dark);font-weight:700;letter-spacing:1px;">&#201;ves k&#246;lts&#233;g</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);">100.000 Ft</div>
+                    </div>
+                    <div style="background:var(--gold-pale);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--gold);font-weight:700;letter-spacing:1px;">&#193;rbev&#233;tel pot.</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">2&ndash;6M Ft/&#233;v</div>
+                    </div>
+                    <div style="background:var(--blue-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:1px;">Potenci&#225;l</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">4/5</div>
+                    </div>
+                    <div style="background:var(--bg-alt);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:700;letter-spacing:1px;">Fejl. id&#337;</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;">4&ndash;6 h&#233;t</div>
+                    </div>
+                </div>
+                <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong>Eld&#246;ntend&#337;</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>SaaS + NAV API integr.</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong style="color:var(--teal);">Alacsony</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.25rem 0;"><span style="color:var(--text-muted);">Szerver</span><strong>K&#246;z&#246;s infra (Hetzner)</strong></div>
+                </div>
+            </div>
+            <div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));border:2px solid var(--gold);border-radius:14px;padding:1rem;margin-bottom:0.8rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem;">&#201;rt&#233;kes&#237;t&#233;shez sz&#252;ks&#233;ges</div>
+                    <ul style="list-style:none;font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <li>&#9679; Google Ads: &#8222;sz&#225;mlaelemz&#337;&#8221;, &#8222;NAV kompatibilis&#8221;</li>
+                        <li>&#9679; B2B telefon: k&#246;nyvel&#337; irod&#225;k, EV-k</li>
+                        <li>&#9679; NAV API integr&#225;ci&#243; befejez&#233;se</li>
+                        <li>&#9679; Freemium &#8594; upsell k&#246;nyvel&#337; csomag</li>
+                    </ul>
+                </div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));border:2px solid var(--teal);border-radius:14px;padding:1rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--teal);margin-bottom:0.5rem;">K&#246;lts&#233;g bont&#225;s (&#233;ves)</div>
+                    <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <div style="display:flex;justify-content:space-between;"><span>Szerver (k&#246;z&#246;s)</span><strong>~30.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Domain</span><strong>~10.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>NAV API</span><strong>~30.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>AI (OCR + LLM)</span><strong>~30.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--teal);margin-top:0.3rem;padding-top:0.3rem;"><strong>&#214;sszesen</strong><strong style="color:var(--red);">~100.000 Ft</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">7 / 14</div>
+    </div>
+
+    <!-- 8: ANYWAY ERP -->
+    <div class="slide slide-content" id="slide-5d" style="padding:4.5rem 4.5rem 2rem;">
+        <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
+            <div class="section-num" style="background:linear-gradient(135deg,var(--blue),#1E4A64);">4/6</div>
+            <h2>Anyway ERP</h2>
+            <div style="margin-left:auto;background:var(--blue);color:#fff;padding:0.3rem 1rem;border-radius:10px;font-weight:700;font-size:0.9rem;">FEJL. 40%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+                    <div style="background:var(--teal-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--teal-dark);font-weight:700;letter-spacing:1px;">&#201;ves k&#246;lts&#233;g</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);">Alacsony</div>
+                    </div>
+                    <div style="background:var(--gold-pale);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--gold);font-weight:700;letter-spacing:1px;">&#193;rbev&#233;tel pot.</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">5&ndash;15M Ft/&#233;v</div>
+                    </div>
+                    <div style="background:var(--blue-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:1px;">Potenci&#225;l</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">4/5</div>
+                    </div>
+                    <div style="background:var(--bg-alt);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:700;letter-spacing:1px;">Fejl. id&#337;</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;">Folyamatban</div>
+                    </div>
+                </div>
+                <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong style="color:var(--teal-dark);">Jani</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>SaaS szem&#233;lyre szabott</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong>K&#246;zepes (SAP, MiniCRM dr&#225;ga)</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.25rem 0;"><span style="color:var(--text-muted);">Szerver</span><strong>K&#246;z&#246;s infra</strong></div>
+                </div>
+            </div>
+            <div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--blue-light));border:2px solid var(--blue);border-radius:14px;padding:1rem;margin-bottom:0.8rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--blue);margin-bottom:0.5rem;">&#201;rt&#233;kes&#237;t&#233;shez sz&#252;ks&#233;ges</div>
+                    <ul style="list-style:none;font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <li>&#9679; Bels&#337; haszn&#225;lat (TDHR) &#8594; referencia</li>
+                        <li>&#9679; B2B: KKV-k akik kin&#337;tt&#233;k az Excelt</li>
+                        <li>&#9679; Demo verzi&#243; k&#233;sz&#237;t&#233;se</li>
+                        <li>&#9679; Szem&#233;lyre szab&#225;s mint USP</li>
+                    </ul>
+                </div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));border:2px solid var(--gold);border-radius:14px;padding:1rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem;">K&#246;lts&#233;g bont&#225;s (&#233;ves)</div>
+                    <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <div style="display:flex;justify-content:space-between;"><span>Szerver (k&#246;z&#246;s)</span><strong>~50.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Domain</span><strong>~10.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Fejleszt&#337;i id&#337;</span><strong>Jani kapacit&#225;s</strong></div>
+                        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--gold);margin-top:0.3rem;padding-top:0.3rem;"><strong>&#214;sszesen</strong><strong style="color:var(--teal);">Alacsony</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">8 / 14</div>
+    </div>
+
+    <!-- 9: ANYWAY ATS -->
+    <div class="slide slide-content" id="slide-5e" style="padding:4.5rem 4.5rem 2rem;">
+        <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
+            <div class="section-num" style="background:linear-gradient(135deg,var(--blue),#1E4A64);">5/6</div>
+            <h2>Anyway ATS</h2>
+            <div style="margin-left:auto;background:var(--teal);color:#fff;padding:0.3rem 1rem;border-radius:10px;font-weight:700;font-size:0.9rem;">K&#201;SZ 80%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+                    <div style="background:var(--teal-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--teal-dark);font-weight:700;letter-spacing:1px;">&#201;ves k&#246;lts&#233;g</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);">Alacsony</div>
+                    </div>
+                    <div style="background:var(--gold-pale);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--gold);font-weight:700;letter-spacing:1px;">&#193;rbev&#233;tel pot.</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">3&ndash;10M Ft/&#233;v</div>
+                    </div>
+                    <div style="background:var(--blue-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:1px;">Potenci&#225;l</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">4/5</div>
+                    </div>
+                    <div style="background:var(--bg-alt);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:700;letter-spacing:1px;">Fejl. id&#337;</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">K&#233;sz</div>
+                    </div>
+                </div>
+                <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong style="color:var(--teal-dark);">Jani</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>SaaS + per hirdet&#233;s</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong>K&#246;zepes (de ATS piac cs&#246;kken!)</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.25rem 0;"><span style="color:var(--text-muted);">Kock&#225;zat</span><strong style="color:var(--red);">ATS piac cs&#246;kken&#337; trend</strong></div>
+                </div>
+            </div>
+            <div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--blue-light));border:2px solid var(--blue);border-radius:14px;padding:1rem;margin-bottom:0.8rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--blue);margin-bottom:0.5rem;">&#201;rt&#233;kes&#237;t&#233;shez sz&#252;ks&#233;ges</div>
+                    <ul style="list-style:none;font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <li>&#9679; TDI &#252;gyf&#233;lb&#225;zis (megl&#233;v&#337; kapcsolatok)</li>
+                        <li>&#9679; B2B telefon: HR oszt&#225;lyok</li>
+                        <li>&#9679; Freemium &#8594; pr&#233;mium upsell</li>
+                        <li>&#9679; Integr&#225;ci&#243; ERP-vel (cross-sell)</li>
+                    </ul>
+                </div>
+                <div style="background:linear-gradient(135deg,#fff 50%,#FDEDEC);border:2px solid var(--red);border-radius:14px;padding:1rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--red);margin-bottom:0.5rem;">K&#246;lts&#233;g + Kock&#225;zat</div>
+                    <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <div style="display:flex;justify-content:space-between;"><span>Szerver (k&#246;z&#246;s)</span><strong>~40.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Domain</span><strong>~10.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--red);margin-top:0.3rem;padding-top:0.3rem;"><strong>&#214;sszesen</strong><strong style="color:var(--teal);">Alacsony</strong></div>
+                        <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(192,57,43,0.08);border-radius:8px;color:var(--red);font-weight:700;text-align:center;">&#9888; ATS piac cs&#246;kken&#337; trend!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">9 / 14</div>
+    </div>
+
+    <!-- 10: CRM -->
+    <div class="slide slide-content" id="slide-5f" style="padding:4.5rem 4.5rem 2rem;">
+        <div class="section-header" style="margin-bottom:0.8rem;padding-bottom:0.6rem;">
+            <div class="section-num" style="background:linear-gradient(135deg,var(--gold),#E8B830);">6/6</div>
+            <h2>CRM rendszer</h2>
+            <div style="margin-left:auto;background:var(--gold);color:#fff;padding:0.3rem 1rem;border-radius:10px;font-weight:700;font-size:0.9rem;">TERV 10%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+                    <div style="background:var(--teal-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--teal-dark);font-weight:700;letter-spacing:1px;">&#201;ves k&#246;lts&#233;g</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);">Alacsony</div>
+                    </div>
+                    <div style="background:var(--gold-pale);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--gold);font-weight:700;letter-spacing:1px;">&#193;rbev&#233;tel pot.</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal);">2&ndash;8M Ft/&#233;v</div>
+                    </div>
+                    <div style="background:var(--blue-light);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--blue);font-weight:700;letter-spacing:1px;">Potenci&#225;l</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">3/5</div>
+                    </div>
+                    <div style="background:var(--bg-alt);border-radius:12px;padding:0.8rem;text-align:center;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:700;letter-spacing:1px;">Fejl. id&#337;</div>
+                        <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;">3&ndash;5 h&#233;t</div>
+                    </div>
+                </div>
+                <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Felel&#337;s</span><strong style="color:var(--gold);">Attila</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Modell</span><strong>SaaS / CRM as a Service</strong></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.25rem 0;"><span style="color:var(--text-muted);">Verseny</span><strong>K&#246;zepes (MiniCRM, HubSpot)</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.25rem 0;"><span style="color:var(--text-muted);">Szerver</span><strong>K&#246;z&#246;s infra</strong></div>
+                </div>
+            </div>
+            <div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));border:2px solid var(--gold);border-radius:14px;padding:1rem;margin-bottom:0.8rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem;">&#201;rt&#233;kes&#237;t&#233;shez sz&#252;ks&#233;ges</div>
+                    <ul style="list-style:none;font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <li>&#9679; Bels&#337; haszn&#225;lat (saj&#225;t sales) &#8594; dogfooding</li>
+                        <li>&#9679; B2B telefon: KKV-k CRM n&#233;lk&#252;l</li>
+                        <li>&#9679; Integr&#225;ci&#243; ATS-sel &#233;s ERP-vel</li>
+                        <li>&#9679; Google Ads: &#8222;CRM magyar&#8221;, &#8222;&#252;gyf&#233;lkezel&#337;&#8221;</li>
+                    </ul>
+                </div>
+                <div style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));border:2px solid var(--teal);border-radius:14px;padding:1rem;">
+                    <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--teal);margin-bottom:0.5rem;">K&#246;lts&#233;g bont&#225;s (&#233;ves)</div>
+                    <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">
+                        <div style="display:flex;justify-content:space-between;"><span>Szerver (k&#246;z&#246;s)</span><strong>~30.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Domain</span><strong>~10.000 Ft</strong></div>
+                        <div style="display:flex;justify-content:space-between;"><span>Fejleszt&#337;i id&#337;</span><strong>Attila + AI</strong></div>
+                        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--teal);margin-top:0.3rem;padding-top:0.3rem;"><strong>&#214;sszesen</strong><strong style="color:var(--teal);">Alacsony</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">10 / 14</div>
+    </div>
                 </div>
                 <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.5;">
                     <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:0.2rem 0;"><span style="color:var(--text-muted);">&Aacute;rbev&eacute;tel pot.</span><strong style="color:var(--teal);">3-8M Ft/&eacute;v</strong></div>
@@ -446,10 +768,9 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">5 / 11</div>
+        <div class="slide-number">5 / 14</div>
     </div>
 
-    <!-- 6: AI TANACSADAS & SZOLGALTATASOK -->
     <div class="slide slide-content" id="slide-5c" style="padding:4.5rem 5rem 2rem;">
         <div class="section-header" style="margin-bottom:1rem;padding-bottom:0.6rem;">
             <div class="section-num">5</div>
@@ -496,60 +817,10 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">6 / 11</div>
+        <div class="slide-number">6 / 14</div>
     </div>
 
-    <!-- 7: APP & WEBOLDAL STRATEGIA -->
-    <div class="slide slide-content" id="slide-5d" style="padding:4.5rem 5rem 2rem;">
-        <div class="section-header" style="margin-bottom:1rem;padding-bottom:0.6rem;">
-            <div class="section-num gold">6</div>
-            <h2>App &amp; Weboldal fejleszt&eacute;s &mdash; Strat&eacute;gia</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-            <!-- Bal: App fejlesztés -->
-            <div>
-                <div style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));border:2px solid var(--teal);border-radius:18px;padding:1.5rem;margin-bottom:1rem;">
-                    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--teal);margin-bottom:0.6rem;">App fejleszt&eacute;s (pl. Pokertimer)</div>
-                    <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
-                        Jelenlegi p&eacute;lda: <strong>Pokertimer</strong> m&aacute;r Google Play-en.<br>
-                        Tov&aacute;bbi app &ouml;tletek brainstorming sz&uuml;ks&eacute;ges.
-                    </div>
-                    <div style="margin-top:0.8rem;font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin-bottom:0.4rem;">&Aacute;raz&aacute;si modellek:</div>
-                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-                        <span style="background:var(--teal-light);color:var(--teal-dark);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">Freemium + IAP</span>
-                        <span style="background:var(--gold-pale);color:var(--gold);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">El&#337;fizet&eacute;s (PRO/MAX)</span>
-                        <span style="background:var(--blue-light);color:var(--blue);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">AdMob rekl&aacute;m</span>
-                        <span style="background:#FDEDEC;color:var(--red);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">One-time fee</span>
-                    </div>
-                </div>
-                <div class="note" style="margin:0;font-size:0.95rem;padding:1rem 1.2rem;">
-                    <strong>Tan&aacute;csad&oacute;i javaslat:</strong> Az app fejleszt&eacute;s alacsony k&ouml;lts&eacute;g&#369;, magas margin&uacute; ter&uuml;let. A freemium + el&#337;fizet&eacute;s kombin&aacute;ci&oacute; a legsk&aacute;l&aacute;zhat&oacute;bb. C&eacute;lozzatok niche piacokat ahol nincs er&#337;s versenyt&aacute;rs.
-                </div>
-            </div>
-            <!-- Jobb: Weboldal fejlesztés -->
-            <div>
-                <div style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));border:2px solid var(--gold);border-radius:18px;padding:1.5rem;margin-bottom:1rem;">
-                    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--gold);margin-bottom:0.6rem;">Weboldal fejleszt&eacute;s (B2B)</div>
-                    <div style="font-size:0.9rem;color:var(--text-mid);line-height:1.6;">
-                        Megrendel&eacute;sre k&eacute;sz&uuml;l&#337; weboldalak &eacute;s web appok.<br>
-                        Tov&aacute;bbi brainstorming sz&uuml;ks&eacute;ges.
-                    </div>
-                    <div style="margin-top:0.8rem;font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin-bottom:0.4rem;">&Aacute;raz&aacute;si modellek:</div>
-                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-                        <span style="background:var(--gold-pale);color:var(--gold);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">One-time fee (300K-2M)</span>
-                        <span style="background:var(--teal-light);color:var(--teal-dark);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">Retainer (havi d&iacute;j)</span>
-                        <span style="background:var(--blue-light);color:var(--blue);padding:0.25rem 0.8rem;border-radius:8px;font-size:0.85rem;font-weight:600;">Hosting + karbantart&aacute;s</span>
-                    </div>
-                </div>
-                <div class="note gold" style="margin:0;font-size:0.95rem;padding:1rem 1.2rem;">
-                    <strong>Tan&aacute;csad&oacute;i javaslat:</strong> Az egyedi fejleszt&eacute;s j&oacute; k&eacute;szp&eacute;nz-gener&aacute;tor (one-time fee), de nem sk&aacute;l&aacute;zhat&oacute;. Haszn&aacute;lj&aacute;tok sz&aacute;razf&ouml;ldi h&iacute;df&#337;k&eacute;nt: &uuml;gyf&eacute;l kap weboldalt &rarr; upsell SaaS term&eacute;keket (C&eacute;gverzum, Legitas, CRM). <strong>A f&oacute;kusz a recurring revenue legyen.</strong>
-                </div>
-            </div>
-        </div>
-        <div class="slide-number">7 / 11</div>
-    </div>
-
-    <!-- 8: MERRE TOVABB -->
+    <!-- 11: MERRE TOVABB -->
     <div class="slide slide-content" id="slide-7b" style="padding:4.5rem 5rem 2.5rem;">
         <div class="section-header" style="margin-bottom:1.2rem;padding-bottom:0.8rem;">
             <div class="section-num">7</div>
@@ -607,7 +878,7 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">8 / 11</div>
+        <div class="slide-number">8 / 14</div>
     </div>
 
     <!-- 9: VALLALKOZOI MATRIX -->
@@ -692,7 +963,7 @@
         <div class="note gold" style="margin-top:0.8rem;font-size:1.1rem;padding:1rem 1.5rem;">
             <strong>T&#337;ke:</strong> 1.5M Ft / f&#337; = <strong>6M Ft</strong> &ouml;sszesen &nbsp;|&nbsp; <strong>Tulajdon:</strong> 25-25-25-25% &nbsp;|&nbsp; <strong>Heti kapacit&aacute;s:</strong> 12+10+12+10 = 44 &oacute;ra
         </div>
-        <div class="slide-number">7 / 11</div>
+        <div class="slide-number">7 / 14</div>
     </div>
 
     <!-- 8: INTERAKTÍV DÖNTÉSI JÁTÉK -->
@@ -713,7 +984,7 @@
         <div style="text-align:center;margin-top:1rem;">
             <button id="dReset" onclick="dStart()" style="display:none;background:var(--bg-alt);border:2px solid var(--border);border-radius:12px;padding:0.6rem 2rem;font-size:1.1rem;font-weight:600;color:var(--text-mid);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;">&#8634; &Uacute;jrakezd&eacute;s</button>
         </div>
-        <div class="slide-number">9 / 11</div>
+        <div class="slide-number">9 / 14</div>
     </div>
 
 </div><!-- END slides-container -->
