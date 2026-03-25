@@ -627,7 +627,7 @@
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.6rem;max-width:100%;">
             <img src="erp5.png" style="width:100%;height:200px;object-fit:cover;object-position:top;border-radius:12px;border:2px solid var(--border);box-shadow:0 6px 20px rgba(47,100,130,0.12);">
-            <img src="erp.png" style="width:100%;height:200px;object-fit:cover;object-position:top;border-radius:12px;border:2px solid var(--border);box-shadow:0 6px 20px rgba(47,100,130,0.12);">
+            <img src="erp2.png" style="width:100%;height:200px;object-fit:cover;object-position:top;border-radius:12px;border:2px solid var(--border);box-shadow:0 6px 20px rgba(47,100,130,0.12);">
         </div>
         <div class="slide-number">8 / 15</div>
     </div>
@@ -919,33 +919,36 @@
                 </div>
             </div>
         </div>
-        <div style="display:flex;gap:2rem;margin-top:0.8rem;align-items:center;justify-content:center;">
-            <img src="tudatosai-logo.png" style="height:50px;object-fit:contain;border-radius:8px;">
-            <div style="width:2px;height:40px;background:var(--border);"></div>
-            <img src="IFUA_logo-hu.png" style="height:50px;object-fit:contain;border-radius:8px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.6rem;max-width:100%;">
+            <div style="background:var(--bg-card);border:2px solid var(--border);border-radius:12px;box-shadow:0 6px 20px rgba(47,100,130,0.12);height:200px;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
+                <img src="tudatosai-logo.png" style="max-height:100%;max-width:100%;object-fit:contain;">
+            </div>
+            <div style="background:var(--bg-card);border:2px solid var(--border);border-radius:12px;box-shadow:0 6px 20px rgba(47,100,130,0.12);height:200px;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
+                <img src="IFUA_logo-hu.png" style="max-height:100%;max-width:100%;object-fit:contain;">
+            </div>
         </div>
         <div class="slide-number">12 / 15</div>
     </div>
 
     <!-- INDULÁSI CHECKLIST -->
-    <div class="slide slide-content" id="slide-checklist" style="padding:5rem 5% 3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        <div class="section-header" style="margin-bottom:1rem;padding-bottom:0.5rem;width:100%;max-width:1200px;">
+    <div class="slide slide-content" id="slide-checklist" style="padding:4.5rem 3% 2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="section-header" style="margin-bottom:1.5rem;padding-bottom:0.5rem;width:100%;max-width:1400px;">
             <div class="section-num" style="background:linear-gradient(135deg,var(--teal),var(--gold));">&#10003;</div>
             <h2>Indul&#225;si Checklist</h2>
             <div style="margin-left:auto;font-size:0.8rem;color:var(--text-muted);font-weight:600;">Kattints a cell&#225;kra a st&#225;tusz v&#225;lt&#225;s&#225;hoz</div>
         </div>
-        <div class="table-wrap" style="overflow-x:auto;max-width:1200px;width:100%;margin:0 auto;">
-            <table id="checklistTable" style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+        <div class="table-wrap" style="overflow-x:auto;max-width:1400px;width:100%;margin:0 auto;">
+            <table id="checklistTable" style="width:100%;border-collapse:collapse;font-size:0.95rem;">
                 <thead>
                     <tr>
-                        <th style="background:var(--bg-alt);padding:0.7rem 0.8rem;text-align:left;font-weight:700;color:var(--blue);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;border:1px solid var(--border);min-width:160px;">Feladat</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--teal-dark);font-size:0.68rem;border:1px solid var(--border);">C&#233;gverzum</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--teal-dark);font-size:0.68rem;border:1px solid var(--border);">Legitas</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--blue-light));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--blue);font-size:0.68rem;border:1px solid var(--border);">ERP</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--blue-light));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--blue);font-size:0.68rem;border:1px solid var(--border);">ATS</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--gold);font-size:0.68rem;border:1px solid var(--border);">CRM</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--gold);font-size:0.68rem;border:1px solid var(--border);">Sz&#225;mla.</th>
-                        <th style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));padding:0.7rem 0.5rem;text-align:center;font-weight:700;color:var(--teal);font-size:0.68rem;border:1px solid var(--border);">AI Tan&#225;csad&#225;s</th>
+                        <th style="background:var(--bg-alt);padding:1rem 1rem;text-align:left;font-weight:700;color:var(--blue);font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;border:1px solid var(--border);min-width:180px;">Feladat</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--teal-dark);font-size:0.78rem;border:1px solid var(--border);">C&#233;gverzum</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--teal-dark);font-size:0.78rem;border:1px solid var(--border);">Legitas</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--blue-light));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--blue);font-size:0.78rem;border:1px solid var(--border);">ERP</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--blue-light));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--blue);font-size:0.78rem;border:1px solid var(--border);">ATS</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--gold);font-size:0.78rem;border:1px solid var(--border);">CRM</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--gold-pale));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--gold);font-size:0.78rem;border:1px solid var(--border);">Sz&#225;mla.</th>
+                        <th style="background:linear-gradient(135deg,#fff 50%,var(--teal-light));padding:1rem 0.6rem;text-align:center;font-weight:700;color:var(--teal);font-size:0.78rem;border:1px solid var(--border);">AI Tan&#225;csad&#225;s</th>
                     </tr>
                 </thead>
                 <tbody id="checklistBody"></tbody>
@@ -1488,13 +1491,13 @@
         clTasks.forEach(function(task, ri) {
             const tr = document.createElement('tr');
             const tdName = document.createElement('td');
-            tdName.style.cssText = 'padding:0.7rem 0.8rem;border:1px solid var(--border);font-weight:600;color:var(--text);';
+            tdName.style.cssText = 'padding:0.9rem 1rem;border:1px solid var(--border);font-weight:600;color:var(--text);font-size:0.9rem;';
             tdName.textContent = task.name;
             tr.appendChild(tdName);
             const isSpecial = task.type === 'ads' || task.type === 'date';
             for (let ci = 0; ci < 7; ci++) {
                 const td = document.createElement('td');
-                td.style.cssText = 'padding:0.4rem 0.3rem;border:1px solid var(--border);text-align:center;cursor:pointer;transition:all 0.2s;user-select:none;font-size:0.82rem;';
+                td.style.cssText = 'padding:0.8rem 0.5rem;border:1px solid var(--border);text-align:center;cursor:pointer;transition:all 0.2s;user-select:none;font-size:1rem;';
                 if (task.type === 'ads') {
                     td.style.cursor = 'default';
                     td.style.fontWeight = '700';
