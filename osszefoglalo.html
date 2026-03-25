@@ -1231,12 +1231,66 @@
             icon: '\ud83d\udeaa',
             sub: 'V\u00e1laszd ki, ki hagyja el a c\u00e9get',
             options: [
-                { label: 'Leon\u00e1rd', color: 'var(--teal)', next: 'leo_out', crumb: 'Leon\u00e1rd kil\u00e9p' },
-                { label: 'Attila', color: 'var(--gold)', next: 'attila_out', crumb: 'Attila kil\u00e9p' },
-                { label: 'Amir', color: 'var(--blue)', next: 'amir_out', crumb: 'Amir kil\u00e9p' },
-                { label: 'Jani', color: 'var(--teal-dark)', next: 'jani_out', crumb: 'Jani kil\u00e9p' },
-                { label: 'Gymbase l\u00e9p ki', color: 'var(--orange)', next: 'gymbase_out', crumb: 'Gymbase kil\u00e9p' },
-                { label: 'TDS l\u00e9p ki', color: 'var(--red)', next: 'tds_out', crumb: 'TDS kil\u00e9p' }
+                { label: 'Leon\u00e1rd', color: 'var(--teal)', next: 'kilep_leo_gergo', crumb: 'Leon\u00e1rd kil\u00e9p' },
+                { label: 'Attila', color: 'var(--gold)', next: 'kilep_attila_gergo', crumb: 'Attila kil\u00e9p' },
+                { label: 'Amir', color: 'var(--blue)', next: 'kilep_amir_gergo', crumb: 'Amir kil\u00e9p' },
+                { label: 'Jani', color: 'var(--teal-dark)', next: 'kilep_jani_gergo', crumb: 'Jani kil\u00e9p' },
+                { label: 'Gymbase l\u00e9p ki', color: 'var(--orange)', next: 'kilep_gymbase_gergo', crumb: 'Gymbase kil\u00e9p' },
+                { label: 'TDS l\u00e9p ki', color: 'var(--red)', next: 'kilep_tds_gergo', crumb: 'TDS kil\u00e9p' }
+            ]
+        },
+        kilep_leo_gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'Leon\u00e1rd kil\u00e9p \u2014 Gerg\u0151 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'leo_out', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'leo_out', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
+            ]
+        },
+        kilep_attila_gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'Attila kil\u00e9p \u2014 Gerg\u0151 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'attila_out', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'attila_out', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
+            ]
+        },
+        kilep_amir_gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'Amir kil\u00e9p \u2014 Gerg\u0151 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'amir_out', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'amir_out', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
+            ]
+        },
+        kilep_jani_gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'Jani kil\u00e9p \u2014 Gerg\u0151 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'jani_out', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'jani_out', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
+            ]
+        },
+        kilep_gymbase_gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'Gymbase kil\u00e9p \u2014 Gerg\u0151 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'gymbase_out', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'gymbase_out', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
+            ]
+        },
+        kilep_tds_gergo: {
+            question: 'Gerg\u0151 marad alkalmazottk\u00e9nt?',
+            icon: '\ud83d\udc68\u200d\ud83d\udcbb',
+            sub: 'TDS kil\u00e9p \u2014 Gerg\u0151 extra kapacit\u00e1s vs. fix k\u00f6lts\u00e9g',
+            options: [
+                { label: 'Igen, Gerg\u0151 marad', color: 'var(--teal)', next: 'tds_out', crumb: '\u2705 Gerg\u0151 marad' },
+                { label: 'Nem, elengedj\u00fck', color: 'var(--red)', next: 'tds_out', crumb: '\u274c Gerg\u0151t elengedj\u00fck' }
             ]
         },
         leo_out: {
